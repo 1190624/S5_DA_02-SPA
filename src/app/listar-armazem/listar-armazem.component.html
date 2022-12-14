@@ -1,0 +1,37 @@
+<app-menu-header></app-menu-header>
+<body style="background-color:grey;text-align:center">
+
+
+  <h1><i class='bx bxs-building'></i> Lista de Armazéns</h1>
+  <table id="tbody">
+    <tr>
+      <th style="border-radius: 5px 0 0 0"><input type="text" class="header-filter" placeholder="ID"
+          [(ngModel)]="pesquisaIdentificador"></th>
+      <th><input type="text" class="header-filter" placeholder="Designação" [(ngModel)]="pesquisaDesignacao"></th>
+      <th><input type="text" class="header-filter" placeholder="Código-Postal" [(ngModel)]="pesquisaCodigoPostal"></th>
+      <th><input type="text" class="header-filter" placeholder="Nº Porta" [(ngModel)]="pesquisaNumeroPorta"></th>
+      <th><input type="text" class="header-filter" placeholder="Nome Rua" [(ngModel)]="pesquisaNomeRua"></th>
+      <th><input type="text" class="header-filter" placeholder="Localidade" [(ngModel)]="pesquisaLocalidade"></th>
+      <th><input type="text" class="header-filter" placeholder="País" [(ngModel)]="pesquisaPais"></th>
+      <th><input type="text" class="header-filter" placeholder="Município" [(ngModel)]="pesquisaMunicipo"></th>
+      <th><input type="text" class="header-filter" placeholder="Latitude" [(ngModel)]="pesquisaLatitude"></th>
+      <th style="border-radius: 0 5px 0 0"><input type="text" class="header-filter" placeholder="Longitude"
+          [(ngModel)]="pesquisaLongitude"></th>
+    </tr>
+    <tr
+      *ngFor="let a of armazens | filter:'armazem':{Identificador: pesquisaIdentificador, Designacao: pesquisaDesignacao, CodigoPostal: pesquisaCodigoPostal,
+      NumeroPorta: pesquisaNumeroPorta, NomeRua: pesquisaNomeRua, Localidade: pesquisaLocalidade, Pais:pesquisaPais,
+      Municipio: pesquisaMunicipo, Latitude: pesquisaLatitude, Longitude: pesquisaLongitude}">
+      <td>{{a.Identificador}}</td>
+      <td>{{a.Designacao}}</td>
+      <td>{{a.CodigoPostal}}</td>
+      <td>{{a.NumeroPorta}}</td>
+      <td>{{a.NomeRua}}</td>
+      <td>{{a.Localidade}}</td>
+      <td>{{a.Pais}}</td>
+      <td>{{a.Municipio}}</td>
+      <td>{{a.Latitude}}</td>
+      <td>{{a.Longitude}}</td>
+    </tr>
+  </table>
+</body>

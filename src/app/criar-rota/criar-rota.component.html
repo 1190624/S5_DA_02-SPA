@@ -1,0 +1,61 @@
+<app-menu-header></app-menu-header>
+
+
+<body style="background-color:grey;text-align:center">
+
+
+    <div class="contain">
+  
+      <div class="wrapper">
+        <div class="contacts" style="background-image: url('../../assets/rotaEstrada.jpg'); background-repeat: no-repeat; background-size: cover;">
+          <h3><i class='bx bxs-navigation'></i> Nova Rota</h3>
+  
+        </div>
+  
+        <!--Colocar lista para escolher armazém de origem [rotaOrigem](botão select pra cada item) -->
+        <!--Colocar lista para escolher armazém de destino [rotaDestino](botão select pra cada item) 
+            <div ngFor* =" let armazem of armazens">
+                {{armazem.nome}}
+            </div>
+        -->
+
+        <div class="form">
+          <h3>Preencha os seguintes campos:</h3>
+          <form action="">
+            <p>
+              <label for="">Identificador</label>
+              <input type="text" id="identificador" name="Identificador" required [(ngModel)]="rotaId">
+            </p>
+            <p>
+              <label for="">Origem</label>
+              <input type="text" id="origem" name="Origem" required [(ngModel)]="rotaOrigem">
+            </p>
+            <p>
+              <label for="">Destino</label>
+              <input type="text" id="destino" name="Destino" required [(ngModel)]="rotaDestino">
+            </p>
+            <p>
+              <label for="">Distância</label>
+              <input type="text" id="distancia" name="Distância" required [(ngModel)]="rotaDistancia">
+            </p>
+            <p>
+              <label for="">Tempo</label>
+              <input type="text" id="tempo" name="Tempo" required [(ngModel)]="rotaTempo">
+            </p>
+            <p>
+              <label for="">Gasto Energético</label>
+              <input type="text" id="gastoEnergetico" name="GastoEnergetico" required [(ngModel)]="rotaGastoEnergetico">
+            </p>
+            <p>
+              <label for="">Tempo Carga Extra</label>
+              <input type="text" id="tempoCargaExtra" name="TempoCargaExtra" required [(ngModel)]="rotaTempoCargaExtra">
+            </p>
+  
+            <p class="full-width">
+              <button (click)="Submit()">Submeter</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>

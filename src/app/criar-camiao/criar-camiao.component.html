@@ -1,0 +1,55 @@
+<app-menu-header></app-menu-header>
+
+<body style="background-color:grey;text-align:center">
+
+
+    <div class="contain">
+
+        <div class="wrapper">
+            <div class="contacts"
+                style="background-image: url('../../assets/truck.jpg'); background-repeat: no-repeat; background-size: cover;">
+                <h3><i class='bx bxs-truck'></i> Novo Camião</h3>
+
+            </div>
+
+            <div class="form">
+                <h3>Preencha os seguintes campos:</h3>
+                <form action="">
+                    <p>
+                        <label for="">Matrícula</label>
+                        <input type="text" id="matricula" name="Matrícula" required [(ngModel)]="matricula">
+                    </p>
+                    <p>
+                        <label for="">Característica</label>
+                        <input type="text" id="caracteristica" name="Característica" required [(ngModel)]="caracteristica">
+                    </p>
+                    <p>
+                        <label for="">Autonomia</label>
+                        <input type="text" id="autonomia" name="Autonomia" required [(ngModel)]="autonomia">
+                    </p>
+                    <p>
+                        <label for="">Capacidade de Transporte</label>
+                        <input type="text" id="capacidadeTransporte" name="Capacidade de Transporte" required [(ngModel)]="capacidadeTransporte">
+                    </p>
+                    <p>
+                        <label for="">Capacidade de Bateria</label>
+                        <input type="text" id="capacidadeBateria" name="Capacidade de Bateria" required [(ngModel)]="capacidadeBateria">
+                    </p>
+                    <p>
+                        <label for="">Tara</label>
+                        <input type="text" id="tara" name="Tara" required [(ngModel)]="tara">
+                    </p>
+                    <p>
+                        <label for="">Tempo de Carregamento</label>
+                        <input type="text" id="tempoCarregamento" name="Tempo de Carregamento" required [(ngModel)]="tempoCarregamento">
+                    </p>
+                    <p>
+
+                    <p class="full-width">
+                        <button (click)="Submit()">Submeter</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

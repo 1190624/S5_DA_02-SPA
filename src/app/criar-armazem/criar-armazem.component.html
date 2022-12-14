@@ -1,0 +1,65 @@
+<app-menu-header></app-menu-header>
+
+<body style="background-color:grey;text-align:center">
+
+
+  <div class="contain">
+
+    <div class="wrapper">
+      <div class="contacts" style="background-image: url('../../assets/warehouse.jpg'); background-repeat: no-repeat; background-size: cover;">
+        <h3><i class='bx bxs-building'></i> Novo Armazém</h3>
+
+      </div>
+
+      <div class="form">
+        <h3>Preencha os seguintes campos:</h3>
+        <form action="">
+          <p>
+            <label for="">Identificador</label>
+            <input type="text" id="identificador" name="Identificador" required [(ngModel)]="identificador">
+          </p>
+          <p>
+            <label for="">Designação</label>
+            <input type="text" id="designacao" name="Designação" required [(ngModel)]="designacao">
+          </p>
+          <p>
+            <label for="">Código-Postal</label>
+            <input type="text" id="codigoPostal" name="Código-Postal" required [(ngModel)]="codigoPostal">
+          </p>
+          <p>
+            <label for="">Número da Porta</label>
+            <input type="text" id="numeroPorta" name="Número da Porta" required [(ngModel)]="numeroPorta">
+          </p>
+          <p>
+            <label for="">Nome da Rua</label>
+            <input type="text" id="nomeRua" name="Nome da Rua" required [(ngModel)]="nomeRua">
+          </p>
+          <p>
+            <label for="">Localidade</label>
+            <input type="text" id="Localidade" name="Localidade" required [(ngModel)]="localidade">
+          </p>
+          <p>
+            <label for="">País</label>
+            <input type="text" id="pais" name="País" required [(ngModel)]="pais">
+          </p>
+          <p>
+            <label for="">Município</label>
+            <input type="text" id="municipio" name="Município" required [(ngModel)]="municipio">
+          </p>
+          <p>
+            <label for="">Latitude</label>
+            <input type="text" id="latitude" name="Latitude" required [(ngModel)]="latitude">
+          </p>
+          <p>
+            <label for="">Longitude</label>
+            <input type="text" id="longitude" name="Longitude" required [(ngModel)]="longitude">
+          </p>
+
+          <p class="full-width">
+            <button (click)="Submit()">Submeter</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>

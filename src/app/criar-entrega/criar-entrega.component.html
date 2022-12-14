@@ -1,0 +1,57 @@
+<app-menu-header></app-menu-header>
+
+<body style="background-color:grey;text-align:center">
+
+
+  <div class="contain">
+
+    <div class="wrapper">
+      <div class="contacts" style="background-image: url('../../assets/deliveries.jpg'); background-repeat: no-repeat; background-size: cover;">
+        <h3><i class='bx bxs-package'></i> Nova Entrega</h3>
+
+      </div>
+
+      <div class="form">
+        <h3>Preencha os seguintes campos:</h3>
+        <form action="">
+          <p>
+            <label for="">Identificador</label>
+            <input type="text" id="identificador" name="Identificador" required [(ngModel)]="identificador">
+          </p>
+          <p>
+            <label for="">ID do Armazém</label>
+            <input type="text" id="armazemID" name="Armazém ID" required [(ngModel)]="armazemID">
+          </p>
+          <p>
+            <label for="">Dia</label>
+            <input type="text" id="dia" name="Dia" required [(ngModel)]="dia">
+          </p>
+          <p>
+            <label for="">Mês</label>
+            <input type="text" id="mes" name="Mês" required [(ngModel)]="mes">
+          </p>
+          <p>
+            <label for="">Ano</label>
+            <input type="text" id="ano" name="Ano" required [(ngModel)]="ano">
+          </p>
+          <p>
+            <label for="">Massa</label>
+            <input type="text" id="massa" name="Massa" required [(ngModel)]="massa">
+          </p>
+          <p>
+            <label for="">Tempo de Colocação</label>
+            <input type="text" id="tempoColocacao" name="Tempo de Colocação" required [(ngModel)]="tempoColocacao">
+          </p>
+          <p>
+            <label for="">Tempo de Retirada</label>
+            <input type="text" id="tempoRetirada" name="Tempo de Retirada" required [(ngModel)]="tempoRetirada">
+          </p>
+
+          <p class="full-width">
+            <button (click)="Submit()">Submeter</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>

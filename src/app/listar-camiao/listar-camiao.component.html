@@ -1,0 +1,32 @@
+<app-menu-header></app-menu-header>
+
+<body style="background-color:grey;text-align:center">
+
+
+  <h1><i class='bx bxs-truck'></i> Lista de Camiões</h1>
+  <table id="tbody">
+    <tr>
+      <th style="border-radius: 5px 0 0 0"><input type="text" class="header-filter" placeholder="Matrícula" [(ngModel)]="pesquisaMatricula"></th>
+      <th><input type="text" class="header-filter" placeholder="Característica" [(ngModel)]="pesquisaCaracteristica"></th>
+      <th><input type="text" class="header-filter" placeholder="Autonomia" [(ngModel)]="pesquisaAutonomia"></th>
+      <th><input type="text" class="header-filter" placeholder="Capacidade de Transporte" [(ngModel)]="pesquisaCapacidadeTransporte"></th>
+      <th><input type="text" class="header-filter" placeholder="Capacidade de Bateria" [(ngModel)]="pesquisaCapacidadeBateria"></th>
+      <th><input type="text" class="header-filter" placeholder="Tara" [(ngModel)]="pesquisaTara"></th>
+      <th style="border-radius: 0 5px 0 0"><input type="text" class="header-filter" placeholder="Tempo de Carregamento" [(ngModel)]="pesquisaTempoCarregamento"></th>
+    </tr>
+    <tr *ngFor="let c of camioes | filter:'camiao':{matricula: pesquisaMatricula, caracteristica: pesquisaCaracteristica, autonomia: pesquisaAutonomia,capacidadeTransporte: pesquisaCapacidadeTransporte,capacidadeBateria: pesquisaCapacidadeBateria,tara: pesquisaTara, tempoCarregamento: pesquisaTempoCarregamento}">
+      <td>{{c.matricula}}</td>
+      <td>{{c.caracteristica}}</td>
+      <td>{{c.autonomia}}</td>
+      <td>{{c.capacidadeTransporte}}</td>
+      <td>{{c.capacidadeBateria}}</td>
+      <td>{{c.tara}}</td>
+      <td>{{c.tempoCarregamento}}</td>
+    </tr>
+  </table>
+</body>
+
+
+
+
+
