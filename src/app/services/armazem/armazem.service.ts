@@ -8,7 +8,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 })
 export class ArmazemService {
 
-  public url = 'https://localhost:5001/api/armazem';
+  public url = 'https://gestaoarmazem.herokuapp.com/api/armazem';
   constructor(private httpClient: HttpClient) { }
 
 

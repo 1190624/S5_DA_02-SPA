@@ -5,7 +5,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class EntregaService {
-  private url = 'https://localhost:5001/api/Entrega';
+  private url = 'https://gestaoarmazem.herokuapp.com/api/Entrega';
   constructor(private httpClient: HttpClient) { }
 
   criarEntrega(identificador: string,
