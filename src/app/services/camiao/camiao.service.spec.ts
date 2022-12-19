@@ -54,7 +54,7 @@ describe('CamiaoService', () => {
 
       service.criarCamiao(c.matricula,c.caracteristica, c.autonomia, c.capacidadeTransporte,
       c.capacidadeBateria, c.tara, c.tempoCarregamento).subscribe(
-        data => expect(data).toEqual(c, 'should return the Driver'),
+        data => expect(data).toEqual(c, 'deveria retornar um camião'),
         fail
       );
 
