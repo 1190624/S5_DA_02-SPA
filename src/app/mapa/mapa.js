@@ -168,8 +168,12 @@ export default class Mapa {
 
 
 
+                const loader  = new THREE.TextureLoader();
 
-                mesh = new THREE.Mesh(geometry, material);
+                const texture = loader.load('./armazem3D/road.jpg')
+                const material1 = new THREE.MeshPhongMaterial();
+                material.map = texture
+                mesh = new THREE.Mesh(geometry, material1);
 
                 this.scene.add(mesh);
 

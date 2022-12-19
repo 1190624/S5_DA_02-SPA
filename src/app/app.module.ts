@@ -16,6 +16,7 @@ import { ListarEntregaComponent } from './listar-entrega/listar-entrega.componen
 import { SharedModule } from './shared';
 import { CriarRotaComponent } from './criar-rota/criar-rota.component';
 import { RedeViariaComponent } from './rede-viaria/rede-viaria.component';
+import { ListarRotaComponent } from './listar-rota/listar-rota.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RedeViariaComponent } from './rede-viaria/rede-viaria.component';
     ListarEntregaComponent,
     ListarArmazemComponent,
     CriarRotaComponent,
-    RedeViariaComponent
+    RedeViariaComponent,
+    ListarRotaComponent
   ],
   imports: [
     BrowserModule,

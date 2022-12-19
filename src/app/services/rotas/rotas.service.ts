@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { IrotaDTO } from 'src/app/dto/IrotaDTO';
 
 
@@ -9,7 +9,8 @@ import { IrotaDTO } from 'src/app/dto/IrotaDTO';
 })
 export class RotasService {
 
-  private url = 'https://s5da02-logistica-production.up.railway.app/api/rota';
+  //private url = 'https://s5da02-logistica-production.up.railway.app/api/rota';
+  public url = 'http://localhost:2311/api/rota';
   constructor(private httpClient: HttpClient) {
   }
 
@@ -25,5 +26,13 @@ export class RotasService {
     }));
   }
 
+  getRotas(): Observable<any> {
+    return this.httpClient.get(this.url).pipe(map(this.extractData));
+  }
+
+
+  public extractData(res: any) {
+    return res || {};
+  }
 
 }

@@ -1,0 +1,27 @@
+<app-menu-header></app-menu-header>
+
+<body style="background-color:grey;text-align:center">
+
+
+  <h1><i class='bx bxs-navigation'></i> Lista de Rotas</h1>
+  <table id="tbody">
+    <tr>
+      <th style="border-radius: 5px 0 0 0"><input type="text" class="header-filter" placeholder="ID" [(ngModel)]="pesquisaRotaId"></th>
+      <th><input type="text" class="header-filter" placeholder="Origem" [(ngModel)]="pesquisaOrigem"></th>
+      <th><input type="text" class="header-filter" placeholder="Destino" [(ngModel)]="pesquisaDestino"></th>
+      <th><input type="text" class="header-filter" placeholder="Distância" [(ngModel)]="pesquisaDistancia"></th>
+      <th><input type="text" class="header-filter" placeholder="Tempo" [(ngModel)]="pesquisaTempo"></th>
+      <th><input type="text" class="header-filter" placeholder="Gasto Energético" [(ngModel)]="pesquisaGastoEnergetico"></th>
+      <th style="border-radius: 0 5px 0 0"><input type="text" class="header-filter" placeholder="Tempo de Carga Extra" [(ngModel)]="pesquisaTempoCargaExtra"></th>
+    </tr>
+    <tr *ngFor="let r of rotas | filter:'rota':{rotaId: pesquisaRotaId, origem: pesquisaOrigem, destino: pesquisaDestino, distancia: pesquisaDistancia, tempo: pesquisaTempo, gastoEnergetico: pesquisaGastoEnergetico, tempoCargaExtra: pesquisaTempoCargaExtra}">
+      <td>{{r.rotaId}}</td>
+      <td>{{r.origem}}</td>
+      <td>{{r.destino}}</td>
+      <td>{{r.distancia}}</td>
+      <td>{{r.tempo}}</td>
+      <td>{{r.gastoEnergetico}}</td>
+      <td>{{r.tempoCargaExtra}}</td>
+    </tr>
+  </table>
+</body>

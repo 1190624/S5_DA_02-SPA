@@ -11,6 +11,7 @@ import { ListarEntregaComponent } from './listar-entrega/listar-entrega.componen
 import { ListarArmazemComponent } from './listar-armazem/listar-armazem.component';
 import { CriarRotaComponent } from './criar-rota/criar-rota.component';
 import { RedeViariaComponent } from './rede-viaria/rede-viaria.component';
+import { ListarRotaComponent } from './listar-rota/listar-rota.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'listarCamiao' , component: ListarCamiaoComponent},
   {path: 'listarEntrega', component: ListarEntregaComponent},
   {path: 'listarArmazem', component: ListarArmazemComponent},
+  {path: 'listarRota', component: ListarRotaComponent},
   {path: 'criarRota', component: CriarRotaComponent},
   {path: 'redeViaria', component: RedeViariaComponent}
 ];

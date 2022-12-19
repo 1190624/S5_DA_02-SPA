@@ -71,7 +71,51 @@ export class FilterPipe implements PipeTransform {
 
     } else if (domainType === "rota") {
 
-        //TODO
+      if (!params.rotaId && !params.origem && !params.destino && !params.distancia && !params.tempo && !params.gastoEnergetico && !params.tempoCargaExtra) {
+        return items;
+      }
+
+      if (params.rotaId) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['rotaId'].toLowerCase().includes(params.rotaId.toLowerCase())
+        );
+      }
+
+      if (params.origem) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['origem'].toString().toLowerCase().includes(params.origem.toLowerCase())
+        );
+      }
+
+      if (params.destino) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['destino'].toString().toLowerCase().includes(params.destino.toLowerCase())
+        );
+      }
+
+      if (params.distancia) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['distancia'].toString().toLowerCase().includes(params.distancia.toLowerCase())
+        );
+      }
+
+      if (params.tempo) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['tempo'].toString().toLowerCase().includes(params.tempo.toLowerCase())
+        );
+      }
+
+      if (params.gastoEnergetico) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['gastoEnergetico'].toString().toLowerCase().includes(params.gastoEnergetico.toLowerCase())
+        );
+      }
+      if (params.tempoCargaExtra) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['tempoCargaExtra'].toString().toLowerCase().includes(params.tempoCargaExtra.toLowerCase())
+        );
+      }
+
     } else if (domainType === "camiao") {
 
       if (!params.matricula && !params.caracteristica && !params.autonomia && !params.capacidadeTransporte && !params.capacidadeBateria && !params.tara && !params.tempoCarregamento) {
