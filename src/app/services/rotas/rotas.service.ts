@@ -9,7 +9,7 @@ import { IrotaDTO } from 'src/app/dto/IrotaDTO';
 })
 export class RotasService {
 
-  private url = 'https://s5da02-logistica-production.up.railway.app/api/rota';
+  public url = 'https://s5da02-logistica-production.up.railway.app/api/rota';
   //public url = 'http://localhost:2311/api/rota';
   constructor(private httpClient: HttpClient) {
   }
