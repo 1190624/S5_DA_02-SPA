@@ -1,21 +1,21 @@
 export class Entrega{
     identificador: string;
-    armazémID: string;
+    armazemID: string;
     dia:number;
-    mês:number;
+    mes:number;
     ano:number;
     massa: number;
-    tempoColocação: number;
+    tempoColocacao: number;
     tempoRetirada: number;
 
-    constructor(identificador: string, armazémID: string, dia: number, mês: number, ano: number, massa: number, tempoColocação: number, tempoRetirada: number){
+    constructor(identificador: string, armazemID: string, dia: number, mes: number, ano: number, massa: number, tempoColocacao: number, tempoRetirada: number){
             this.identificador = identificador;
-            this.armazémID = armazémID;
+            this.armazemID = armazemID;
             this.dia = dia;
-            this.mês = mês;
+            this.mes = mes;
             this.ano = ano;
             this.massa = massa;
-            this.tempoColocação = tempoColocação;
+            this.tempoColocacao = tempoColocacao;
             this.tempoRetirada = tempoRetirada;
         }
 }

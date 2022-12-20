@@ -5,7 +5,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class EntregaService {
-  private url = 'https://gestaoarmazem.herokuapp.com/api/Entrega';
+  public url = 'https://gestaoarmazem.herokuapp.com/api/Entrega';
   constructor(private httpClient: HttpClient) { }
 
   criarEntrega(identificador: string,
@@ -18,7 +18,7 @@ export class EntregaService {
     tempoRetirada: number): Observable<any> {
 
 
-      const body = {"Identificador": identificador, "Armazém": armazemID, "Dia": dia, "Mes": mes, "Ano": ano, "Massa":massa,"TempoColocação":tempoColocacao, "TempoRetirada":tempoRetirada}
+      const body = {"identificador": identificador, "armazemID": armazemID, "dia": dia, "mes": mes, "ano": ano, "massa":massa,"tempoColocacao":tempoColocacao, "tempoRetirada":tempoRetirada}
       console.log(body);
       return this.httpClient.post(this.url, body).pipe(catchError(err => {
         if (err.status == 400) {
