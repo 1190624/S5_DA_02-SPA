@@ -51,8 +51,6 @@ export class CriarCamiaoComponent implements OnInit {
 
     } else {
 
-      this.camiao = new Camiao(this.matricula, this.caracteristica, this.autonomia, this.capacidadeTransporte,
-        this.capacidadeBateria, this.tara, this.tempoCarregamento);
       this.service.criarCamiao(this.matricula, this.caracteristica, this.autonomia, this.capacidadeTransporte,
         this.capacidadeBateria, this.tara, this.tempoCarregamento).subscribe(data => { alert("O camião foi criado.") });
     }
