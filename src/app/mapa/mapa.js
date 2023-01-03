@@ -74,9 +74,7 @@ export default class Mapa {
         geometry = new THREE.BoxGeometry(120, 1, 120);
         material = new THREE.MeshBasicMaterial({ color: 0xe6e1e5 });
         mesh = new THREE.Mesh(geometry, material);
-        mesh.position.z = -1;
-        mesh.rotation.x = Math.PI / 2;
-        //mesh.rotation.z = Math.PI / 2;
+        mesh.position.y = -1;
         this.scene.add(mesh);
 
         armazemData.forEach(obj => {
@@ -96,12 +94,12 @@ export default class Mapa {
         let points, geometry, mesh;
 
         const normals = new Float32Array([
-            0, 0, 1,
-            0, 0, 1,
-            0, 0, 1,
-            0, 0, 1,
-            0, 0, 1,
-            0, 0, 1
+            0, 1, 0,
+            0, 1, 0,
+            0, 1, 0,
+            0, 1, 0,
+            0, 1, 0,
+            0, 1, 0
         ]);
 
         const indexes = [
@@ -129,38 +127,38 @@ export default class Mapa {
                 //busca os vertices a frente do centro
                 const direction = new THREE.Vector3(
                     destino.coordenadas.x - origem.coordenadas.x,
-                    destino.coordenadas.y -origem.coordenadas.y,
-                    0
+                    0,
+                    destino.coordenadas.z - origem.coordenadas.z
                 ).clampLength(0, 1);
 
 
                 //busca os vertices ao lado do centro(armazém)
                 const crossDirection = new THREE.Vector3(
                     direction.x,
-                    direction.y,
-                    0
-                ).cross(new THREE.Vector3(0, 0, 1));
+                    0,
+                    direction.z
+                ).cross(new THREE.Vector3(0, 1, 0));
 
 
 
                 points = [
-                    new THREE.Vector3(origem.coordenadas.x + crossDirection.x * largura, origem.coordenadas.y + crossDirection.y * largura, origem.coordenadas.z),
-                    new THREE.Vector3(origem.coordenadas.x - crossDirection.x * largura, origem.coordenadas.y - crossDirection.y * largura, origem.coordenadas.z )
+                    new THREE.Vector3(origem.coordenadas.x + crossDirection.x * largura, origem.coordenadas.y, origem.coordenadas.z + crossDirection.z * largura),
+                    new THREE.Vector3(origem.coordenadas.x - crossDirection.x * largura, origem.coordenadas.y, origem.coordenadas.z - crossDirection.z * largura)
                 ];
 
                 points.push(
-                    new THREE.Vector3(points[0].x + direction.x * compOri, points[0].y + direction.y * compOri, points[0].z),
-                    new THREE.Vector3(points[1].x + direction.x * compOri, points[1].y + direction.y * compOri, points[1].z)
+                    new THREE.Vector3(points[0].x + direction.x * compOri, points[0].y, points[0].z + direction.z * compOri),
+                    new THREE.Vector3(points[1].x + direction.x * compOri, points[1].y, points[1].z + direction.z * compOri)
                 )
 
                 points.push(
-                    new THREE.Vector3(destino.coordenadas.x + crossDirection.x * largura, destino.coordenadas.y + crossDirection.y * largura, destino.coordenadas.z),
-                    new THREE.Vector3(destino.coordenadas.x - crossDirection.x * largura, destino.coordenadas.y - crossDirection.y * largura, destino.coordenadas.z)
+                    new THREE.Vector3(destino.coordenadas.x + crossDirection.x * largura, destino.coordenadas.y, destino.coordenadas.z + crossDirection.z * largura),
+                    new THREE.Vector3(destino.coordenadas.x - crossDirection.x * largura, destino.coordenadas.y, destino.coordenadas.z - crossDirection.z * largura)
                 )
 
                 points.push(
-                    new THREE.Vector3(points[4].x - direction.x * compDest, points[4].y - direction.y * compDest, points[4].z),
-                    new THREE.Vector3(points[5].x - direction.x * compDest, points[5].y - direction.y * compDest, points[5].z)
+                    new THREE.Vector3(points[4].x - direction.x * compDest, points[4].y, points[4].z - direction.z * compDest),
+                    new THREE.Vector3(points[5].x - direction.x * compDest, points[5].y, points[5].z - direction.z * compDest)
                 )
 
                 //juntar pontos
@@ -169,13 +167,8 @@ export default class Mapa {
                 geometry.setIndex(indexes);
 
 
-/*
-                const loader  = new THREE.TextureLoader();
 
-                const texture = loader.load('./armazem3D/road.jpg')
-                const material1 = new THREE.MeshPhongMaterial();
-                material.map = texture
-                */
+
                 mesh = new THREE.Mesh(geometry, material);
 
                 this.scene.add(mesh);
@@ -206,9 +199,8 @@ export default class Mapa {
                 //newRoot.position.set(armazem.coordenadas.x - 1, armazem.coordenadas.y-0.2, armazem.coordenadas.z);
 
                 //posição ao lado
-                newRoot.position.set(armazem.coordenadas.x , armazem.coordenadas.y - 2 , armazem.coordenadas.z);
-                newRoot.rotation.x = Math.PI / 2;
-                //newRoot.rotation.z= Math.PI / 2;
+                newRoot.position.set(armazem.coordenadas.x , armazem.coordenadas.y, armazem.coordenadas.z -2);
+
                 this.scene.add(newRoot);
 
             });

@@ -20,12 +20,10 @@ export default class Armazem {
         geometry = new THREE.CylinderGeometry(this.raio, this.raio, 0.1, 32);
         material = new THREE.MeshBasicMaterial({ color: 0x3ac9ad });
         mesh = new THREE.Mesh(geometry, material);
-        mesh.position.z = 0.1;
+        mesh.position.y = 0.1;
         this.object.add(mesh);
         //console.log(this.coordenadas);
         this.object.position.set(this.coordenadas.x, this.coordenadas.y, this.coordenadas.z);
-        this.object.rotation.x = Math.PI / 2;
-        //this.object.rotation.z = Math.PI / 2;
         /*
         const gltfLoader = new THREE.GLTFLoader();
         const url = './armazem3D/scene.gltf';
@@ -43,8 +41,8 @@ export default class Armazem {
     transformarCoordenadas(armazem) {
         return {
             x: (100 / (8.7613 - 8.2451)) * (armazem.lon - 8.2451) - 50,
-            y: (100 / (42.1115 - 40.8387)) * (armazem.lat - 40.8387) - 50,
-            z: ((50 / 800) * armazem.alt) /10
+            z: (100 / (42.1115 - 40.8387)) * (armazem.lat - 40.8387) - 50,
+            y: ((50 / 800) * armazem.alt) /10
         };
 
 
