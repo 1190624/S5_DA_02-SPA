@@ -4,9 +4,6 @@
 
 export const environment = {
   production: false,
-  mapbox: {accesstoken:'pk.eyJ1IjoiY3VuaGFhcyIsImEiOiJja2k0eXFsaDEwMXFvMnJucTlzOTE4bjk3In0.1BWcHMvsWG8bpgOSa2LNng'},
-  url: {},
-  testing: {token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI2MGVhZjc4Yi03MDRjLTQ4ZTYtOGY0MC1iNjJmZjYxYTU1NTYiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE2MTE4NDgzMzgsImV4cCI6MTYxMTkzNDczOCwiaWF0IjoxNjExODQ4MzM4fQ.WFZxYZUTt_JDTRfmUTVpIVa9-ruwSODHiZfFn4UhKlU'}
 };
 
 /*
