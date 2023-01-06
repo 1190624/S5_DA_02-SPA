@@ -27,8 +27,11 @@ export class ListarRotaComponent implements OnInit {
   gastoEnergetico: number;
   tempoCargaExtra: string;
 
-  constructor(private service: RotasService, private route: ActivatedRoute, private router: Router) { }
+  tamanhoLista: number = 10;
+  numeroPagina: number = 1;
 
+  constructor(private service: RotasService, private route: ActivatedRoute, private router: Router) { }
+  
   ngOnInit(): void {
     this.getRotas();
   }

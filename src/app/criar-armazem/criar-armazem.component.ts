@@ -55,8 +55,6 @@ export class CriarArmazemComponent implements OnInit {
       alert("A longitude não é válida!");
     } else {
 
-      this.armazem = new Armazem(this.identificador, this.designacao, this.codigoPostal, this.numeroPorta,
-        this.nomeRua, this.localidade, this.pais, this.municipio, this.latitude, this.longitude);
       this.service.criarArmazem(this.identificador, this.designacao, this.codigoPostal, this.numeroPorta,
         this.nomeRua, this.localidade, this.pais, this.municipio, this.latitude, this.longitude).subscribe(data => { alert("O armazém foi criado.") });
 

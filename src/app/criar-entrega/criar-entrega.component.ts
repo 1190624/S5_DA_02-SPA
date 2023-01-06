@@ -59,7 +59,6 @@ export class CriarEntregaComponent implements OnInit {
       alert("O Valor do Tempo de Retirada é inválido!");
     }
     else{
-      this.entrega = new Entrega(this.identificador, this.armazemID, this.dia, this.mes, this.ano, this.massa, this.tempoColocacao, this.tempoRetirada);
       this.service.criarEntrega(this.identificador, this.armazemID, this.dia, this.mes, this.ano, this.massa, this.tempoColocacao, this.tempoRetirada).subscribe(data => { alert("A Entrega foi criada.") });
     }
   }

@@ -14,7 +14,7 @@
       <th><input type="text" class="header-filter" placeholder="Gasto Energético" [(ngModel)]="pesquisaGastoEnergetico"></th>
       <th style="border-radius: 0 5px 0 0"><input type="text" class="header-filter" placeholder="Tempo de Carga Extra" [(ngModel)]="pesquisaTempoCargaExtra"></th>
     </tr>
-    <tr *ngFor="let r of rotas | filter:'rota':{rotaId: pesquisaRotaId, origem: pesquisaOrigem, destino: pesquisaDestino, distancia: pesquisaDistancia, tempo: pesquisaTempo, gastoEnergetico: pesquisaGastoEnergetico, tempoCargaExtra: pesquisaTempoCargaExtra}">
+    <tr *ngFor="let r of rotas | paginate: { itemsPerPage: tamanhoLista, currentPage: numeroPagina } | filter:'rota':{rotaId: pesquisaRotaId, origem: pesquisaOrigem, destino: pesquisaDestino, distancia: pesquisaDistancia, tempo: pesquisaTempo, gastoEnergetico: pesquisaGastoEnergetico, tempoCargaExtra: pesquisaTempoCargaExtra}">
       <td>{{r.rotaId}}</td>
       <td>{{r.origem}}</td>
       <td>{{r.destino}}</td>
@@ -23,5 +23,15 @@
       <td>{{r.gastoEnergetico}}</td>
       <td>{{r.tempoCargaExtra}}</td>
     </tr>
+    <input type="number" [(ngModel)]="tamanhoLista">
+    <pagination-controls 
+      (pageChange)="numeroPagina = $event" 
+      previousLabel="Previous" 
+      nextLabel="Next" 
+      screenReaderPaginationLabel="Pagination" 
+      screenReaderPageLabel="page" 
+      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  
   </table>
 </body>
