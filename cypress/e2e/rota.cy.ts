@@ -25,6 +25,7 @@ cy.get('#gastoEnergetico').should('be.empty')
 // tempoCarregamento
 cy.get('#tempoCargaExtra').should('be.empty')
 
+//TODO Criar testes para funcionalidades 
 
     cy.get('.full-width').as('btn').click({force: true})
 

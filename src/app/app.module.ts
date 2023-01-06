@@ -17,6 +17,7 @@ import { SharedModule } from './shared';
 import { CriarRotaComponent } from './criar-rota/criar-rota.component';
 import { RedeViariaComponent } from './rede-viaria/rede-viaria.component';
 import { ListarRotaComponent } from './listar-rota/listar-rota.component';
+//import { ExComponent } from './ex/ex.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ListarRotaComponent } from './listar-rota/listar-rota.component';
     CriarRotaComponent,
     RedeViariaComponent,
     ListarRotaComponent
+    //ExComponent
   ],
   imports: [
     BrowserModule,

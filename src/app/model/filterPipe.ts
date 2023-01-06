@@ -118,7 +118,8 @@ export class FilterPipe implements PipeTransform {
 
     } else if (domainType === "camiao") {
 
-      if (!params.matricula && !params.caracteristica && !params.autonomia && !params.capacidadeTransporte && !params.capacidadeBateria && !params.tara && !params.tempoCarregamento) {
+      if (!params.matricula && !params.caracteristica && !params.autonomia && !params.capacidadeTransporte && !params.capacidadeBateria 
+        && !params.tara && !params.tempoCarregamento && !params.ativo) {
         return items;
       }
 
@@ -160,6 +161,12 @@ export class FilterPipe implements PipeTransform {
       if (params.tempoCarregamento) {
         finalList = finalList.filter((singleItem) =>
           singleItem['tempoCarregamento'].toString().toLowerCase().includes(params.tempoCarregamento.toLowerCase())
+        );
+      }
+
+      if (params.ativo) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['ativo'].toString().toLowerCase().includes(params.ativo.toLowerCase())
         );
       }
 

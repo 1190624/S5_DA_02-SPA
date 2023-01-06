@@ -39,17 +39,14 @@ describe('CamiaoService', () => {
     it('deve criar um Camião e retorná-lo', () => {
 
       const c: Camiao = {
-        //name: "n1",
-        //birthdate: "2020-12-30",
-        //driverLicenseNum: 12345,
-        //licenseExpiration: "2020-12-30"
         matricula: "DD-06-FF",
         caracteristica: "Camiao26",
         autonomia:100,
         capacidadeTransporte:900,
         capacidadeBateria:60,
         tara: 2000,
-        tempoCarregamento:"10:10"
+        tempoCarregamento:"10:10",
+        ativo: true
       };
 
       service.criarCamiao(c.matricula,c.caracteristica, c.autonomia, c.capacidadeTransporte,

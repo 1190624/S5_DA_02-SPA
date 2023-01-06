@@ -25,15 +25,18 @@ h1 {
 table {
     border-collapse: collapse;
     background-color: white;
-    width: 80%;
+    width: 50%;
     align-items: center;
     margin: auto;
+}
+th{
+    width:fit-content;
 }
 
 th.input {
     text-align: center;
-    padding: 15px;
-    font-size: 17px;
+    padding: 5px;
+    font-size: 15px;
     width: auto;
 }
 
@@ -52,6 +55,24 @@ tr:hover {
 .header-filter {
     border: none;
     max-width: auto;
-    padding: 10px 9px;
+    padding: 4px 4px;
     text-align: center;
 }
+
+button {
+    width: 100%;
+    border: 1px solid #927000;
+  }
+
+  button {
+    background: lightgrey;
+    width: 100%;
+    border: 0;
+  }
+  
+  button:hover,
+  button:focus {
+    color: white;
+    background: #927000;
+    outline: 0;
+  }

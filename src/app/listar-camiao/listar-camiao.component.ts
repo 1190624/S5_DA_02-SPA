@@ -16,6 +16,7 @@ export class ListarCamiaoComponent implements OnInit {
   pesquisaCapacidadeBateria: string;
   pesquisaTara: string;
   pesquisaTempoCarregamento: string;
+  pesquisaAtivo: string;
 
   camioes: Camiao [];
 
@@ -27,6 +28,7 @@ export class ListarCamiaoComponent implements OnInit {
   capacidadeBateria: number;
   tara: number;
   tempoCarregamento: string;
+  ativo:boolean;
 
   constructor(private service: CamiaoService, private route: ActivatedRoute, private router: Router) { }
 
@@ -39,5 +41,11 @@ export class ListarCamiaoComponent implements OnInit {
     this.service.getCamioes().subscribe(data => {
       this.camioes = data;
     });
+  }
+
+
+
+  mudarEstado(matricula:string): void{
+    this.service.mudarEstado(matricula).subscribe(data => { alert("O estado do camião foi atualizado.") });
   }
 }

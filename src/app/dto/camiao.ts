@@ -7,10 +7,11 @@ export class Camiao{
     capacidadeBateria:number;
     tara: number;
     tempoCarregamento:string;
+    ativo:boolean;
 
 
     constructor(matricula: string, caracteristica: string, autonomia:number, capacidadeTransporte:number, capacidadeBateria:number,
-        tara: number, tempoCarregamento:string){
+        tara: number, tempoCarregamento:string, ativo: boolean){
             this.matricula = matricula;
             this.caracteristica = caracteristica;
             this.autonomia =autonomia;
@@ -18,5 +19,6 @@ export class Camiao{
             this.capacidadeBateria = capacidadeBateria;
             this.tara = tara;
             this.tempoCarregamento = tempoCarregamento;
+            this.ativo = ativo;
         }
 }

@@ -7,7 +7,8 @@ import { Camiao } from '../../dto/camiao';
   providedIn: 'root'
 })
 export class CamiaoService {
-  public url = 'https://s5da02-logistica-production.up.railway.app/api/camiao';
+  //public url = 'https://s5da02-logistica-production.up.railway.app/api/camiao';
+  public url = 'http://localhost:2311/api/camiao';
   constructor(private httpClient: HttpClient) { }
 
 
@@ -32,27 +33,24 @@ export class CamiaoService {
     }));
   }
 
-
-
-  /*
-    atualizarCamio(matricula: string, caracteristica: string, autonomia:number, capacidadeTransporte:number, capacidadeBateria:number,
-      tara: number, tempoCarregamento:string): Observable<any>{
-  
-      this.verificarAtributos(matricula, caracteristica, autonomia, capacidadeTransporte, capacidadeBateria,tara, tempoCarregamento);
-      
-      const body = {"matricula":matricula,"caracteristica":caracteristica,
-      "autonomia":autonomia, "capacidadeTransporte":capacidadeTransporte, "capacidadeBateria":capacidadeBateria, "tara": tara, "tempoCarregamento":tempoCarregamento}
-      
-      console.log(body);
-      return this.httpClient.put(this.url, body).pipe(map(this.extractData));
-    }
-  */
-
-
   getCamioes(): Observable<any> {
     return this.httpClient.get(this.url).pipe(map(this.extractData));
   }
 
+  mudarEstado(matricula: string): Observable<any> {
+    //http://localhost:2311/api/camiao/inibir?matricula=JJ-10-JJ
+    return this.httpClient.patch(this.url + '/inibir?matricula=' + matricula, null).pipe(map(this.extractData));
+  }
+
+  public extractData(res: any) {
+    return res || {};
+  }
+
+}
+
+
+
+/*
   listaCamioes(): void {
 
     let tbody = document.getElementById('tbody') as HTMLTableElement;
@@ -81,25 +79,4 @@ export class CamiaoService {
     });
   }
 
-  getCamiao(matricula: string): Observable<any> {
-    return this.httpClient.get(this.url + '/:matricula' + matricula).pipe(
-      map(this.extractData));
-  }
-
-
-
-
-  verificarAtributos(matricula: string, caracteristica: string, autonomia: number, capacidadeTransporte: number, capacidadeBateria: number,
-    tara: number, tempoCarregamento: string): void {
-
-
-
-  }
-
-
-
-  public extractData(res: any) {
-    return res || {};
-  }
-
-}
+*/
