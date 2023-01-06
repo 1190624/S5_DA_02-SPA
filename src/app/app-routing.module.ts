@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { CriarCamiaoComponent } from './criar-camiao/criar-camiao.component';
 import { CriarArmazemComponent } from './criar-armazem/criar-armazem.component';
 import { AppComponent } from './app.component';
@@ -29,7 +31,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),
+    NgxPaginationModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

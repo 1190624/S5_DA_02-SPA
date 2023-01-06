@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FilterPipe} from "./model/filterPipe";
+import { NgxPaginationModule } from 'ngx-pagination';
 // ...
 
 
@@ -8,6 +9,7 @@ import {FilterPipe} from "./model/filterPipe";
   imports: [
     // Modules
     CommonModule,
+    NgxPaginationModule,
   ],
 
   declarations: [
