@@ -6,7 +6,8 @@ import { Armazem } from '../dto/armazem';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import TextSprite from '@seregpie/three.text-sprite';
-import { withDebugTracing } from '@angular/router';
+import { RotasService } from '../services/rotas/rotas.service';
+import { Object3D } from 'three';
 
 @Component({
   selector: 'app-map',
@@ -25,14 +26,16 @@ export class RedeViariaComponent implements OnInit {
   checkOrbit: boolean = true;
   windowsResize: number = 0;
 
-  public listaArmazensDTO: Array<Armazem> = new Array<Armazem>();
+  private listaArmazensDTO: any[] = [];
+  private listaRotasDTO: any[] = [];
+  private warehouseBaseGeometry = new THREE.CylinderGeometry(5, 5, 0.22, 64);
 
-  constructor(public armazemService: ArmazemService) {
+  constructor(private armazemService: ArmazemService, private rotasService: RotasService) {
 
   }
 
   ngOnInit(): void {
-    this.scene.background = new THREE.Color(0xfffff);
+
   }
 
   ngAfterViewInit(): void {
@@ -86,6 +89,8 @@ export class RedeViariaComponent implements OnInit {
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFShadowMap
     document.body.appendChild(this.renderer.domElement);
 
     // Orbit controls
@@ -101,6 +106,7 @@ export class RedeViariaComponent implements OnInit {
     this.createBase();
     this.createRotundas();
     this.createArmazens();
+    this.createEstradas();
     //this.createMiniMapView();
     //this.addLigths();
     //this.createRenderer();
@@ -117,6 +123,8 @@ export class RedeViariaComponent implements OnInit {
     material = new THREE.MeshBasicMaterial({ color: 0xe6e1e5 });
     mesh = new THREE.Mesh(geometry, material);
     mesh.position.y = -1;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
     this.scene.add(mesh);
   }
 
@@ -144,8 +152,10 @@ export class RedeViariaComponent implements OnInit {
       mesh = new THREE.Mesh(geometry, material);
       mesh.position.y = 0.1;
       object.add(mesh);
-
+      object.name=a.Designacao;
       object.position.set(coordenadas.x, coordenadas.y, coordenadas.z);
+      object.castShadow = true;
+      object.receiveShadow = true;
       this.scene.add(object);
     });
   }
@@ -173,16 +183,18 @@ export class RedeViariaComponent implements OnInit {
       return false;
     });
 
-    const gltfLoader = new GLTFLoader();
     console.log(this.listaArmazensDTO);
+    const gltfLoader = new GLTFLoader();
 
     this.listaArmazensDTO.forEach(a => {
       let coordenadas = this.transformarCoordenadas(a);
       gltfLoader.load('../../assets/armazem.gltf', (gltf) => {
         let root = gltf.scene;
         let newRoot = root.clone();
+        newRoot.castShadow = true;
+        newRoot.receiveShadow = true;
         newRoot.scale.set(0.5, 0.5, 0.5);
-        
+
 
         //posição diretamente em cima da rotunda
         //newRoot.position.set(armazem.coordenadas.x - 1, armazem.coordenadas.y-0.2, armazem.coordenadas.z);
@@ -193,19 +205,73 @@ export class RedeViariaComponent implements OnInit {
         this.scene.add(newRoot);
 
       });
-
-
-      let sprite=new TextSprite({ text: a.Designacao,alignment: 'left',
+/**
+      //Billboards por cima dos armazéns
+      let sprite = new TextSprite({
+        text: a.Designacao, alignment: 'left',
         color: '#000000',
         fontFamily: '"Arial", Times, serif',
         fontStyle: 'italic',
-        backgroundColor: '#ffffff'});
+        backgroundColor: '#ffffff'
+      });
       sprite.position.set(coordenadas.x, coordenadas.y + 3, coordenadas.z - 2);
       this.scene.add(sprite)
-
+*/
     });
   }
 
+  private async createEstradas() {
+    await this.rotasService.getRotas().toPromise().then(r => {
+      if (r != undefined) {
+        this.listaRotasDTO = r;
+        return true;
+      }
+      return false;
+    });
+    console.log(this.listaRotasDTO);
+
+    for (let i = 0; i < this.listaRotasDTO.length; i++) {
+      let armazem1 = <Object3D>this.scene.getObjectByName((this.listaRotasDTO[i].origem));
+      let armazem2 = <Object3D>this.scene.getObjectByName((this.listaRotasDTO[i].destino));
+
+      if (armazem1 != null && armazem2 != null) {
+        let teta0 = Math.atan2(-(armazem2.position.z - armazem1.position.z), armazem2.position.x - armazem1.position.x);
+        let teta1 = Math.PI + teta0;
+
+        let elemLigMaterial = [new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 })];
+        let elemLigGeometry = new THREE.BoxGeometry(0.3, 0.20, 2);
+
+        let elemLig0Mesh = new THREE.Mesh(elemLigGeometry, elemLigMaterial);
+        elemLig0Mesh.position.set(armazem1.position.x + this.warehouseBaseGeometry.parameters.radiusTop * Math.cos(teta0), armazem1.position.y, armazem1.position.z - this.warehouseBaseGeometry.parameters.radiusTop * Math.sin(teta0));
+        elemLig0Mesh.rotateY(teta0)
+        elemLig0Mesh.castShadow = true;
+        elemLig0Mesh.receiveShadow = true;
+        this.scene.add(elemLig0Mesh)
+
+        let elemLig1Mesh = new THREE.Mesh(elemLigGeometry, elemLigMaterial);
+        elemLig1Mesh.position.set(armazem2.position.x + this.warehouseBaseGeometry.parameters.radiusTop * Math.cos(teta1), armazem2.position.y, armazem2.position.z - this.warehouseBaseGeometry.parameters.radiusTop * Math.sin(teta1));
+        elemLig1Mesh.rotateY(teta1)
+        elemLig1Mesh.castShadow = true;
+        elemLig1Mesh.receiveShadow = true;
+        this.scene.add(elemLig1Mesh)
+
+        let roadMaterial = [new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 })];
+        let roadGeometry = new THREE.BoxGeometry(2, 0.20, Math.sqrt(Math.pow(elemLig0Mesh.position.x - elemLig1Mesh.position.x, 2) + Math.pow(elemLig0Mesh.position.y - elemLig1Mesh.position.y, 2) + Math.pow(elemLig0Mesh.position.z - elemLig1Mesh.position.z, 2)));
+        let roadMesh = new THREE.Mesh(roadGeometry, roadMaterial);
+
+        roadMesh.position.set((elemLig0Mesh.position.x + elemLig1Mesh.position.x) / 2, (elemLig0Mesh.position.y + elemLig1Mesh.position.y) / 2, (elemLig0Mesh.position.z + elemLig1Mesh.position.z) / 2);
+        roadMesh.castShadow = true;
+        roadMesh.receiveShadow = true;
+        this.scene.add(roadMesh)
+
+        let beta = Math.asin((elemLig0Mesh.position.y - elemLig1Mesh.position.y) / roadGeometry.parameters.depth);
+        let omega = teta0 + Math.PI / 2;
+        roadMesh.rotation.set(beta, omega, 0, "ZYX")
+
+        //this.roadsData.set(this.routes[i].routeId, [teta0, teta1, elemLig0Mesh.position.x, elemLig0Mesh.position.y, elemLig0Mesh.position.z, elemLig1Mesh.position.x, elemLig1Mesh.position.y, elemLig1Mesh.position.z, roadMesh.position.x, roadMesh.position.y, roadMesh.position.z, beta, (teta0 + Math.PI / 2)])
+      }
+    }
+  }
   /**
    * ANIMAÇÕES
    */
