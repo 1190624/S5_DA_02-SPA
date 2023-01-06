@@ -5,6 +5,8 @@ import * as THREE from "three";
 import { Armazem } from '../dto/armazem';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import TextSprite from '@seregpie/three.text-sprite';
+import { withDebugTracing } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -66,16 +68,15 @@ export class RedeViariaComponent implements OnInit {
 
     //this.renderer.shadowMap.enable = true;
 
-    /** 
-        this.scene.background = new THREE.CubeTextureLoader().load([
-          '../../assets/skybox/xpos.png',
-          '../../assets/skybox/xneg.png',
-          '../../assets/skybox/ypos.png',
-          '../../assets/skybox/yneg.png',
-          '../../assets/skybox/zpos.png',
-          '../../assets/skybox/zneg.png',
-        ]);
-    */
+
+    this.scene.background = new THREE.CubeTextureLoader().load([
+      '../../assets/skybox/xpos.png',
+      '../../assets/skybox/xneg.png',
+      '../../assets/skybox/ypos.png',
+      '../../assets/skybox/yneg.png',
+      '../../assets/skybox/zpos.png',
+      '../../assets/skybox/zneg.png',
+    ]);
 
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
     this.camera.position.set(0, 90, 0);
@@ -176,12 +177,12 @@ export class RedeViariaComponent implements OnInit {
     console.log(this.listaArmazensDTO);
 
     this.listaArmazensDTO.forEach(a => {
-
+      let coordenadas = this.transformarCoordenadas(a);
       gltfLoader.load('../../assets/armazem.gltf', (gltf) => {
         let root = gltf.scene;
         let newRoot = root.clone();
         newRoot.scale.set(0.5, 0.5, 0.5);
-        let coordenadas = this.transformarCoordenadas(a);
+        
 
         //posição diretamente em cima da rotunda
         //newRoot.position.set(armazem.coordenadas.x - 1, armazem.coordenadas.y-0.2, armazem.coordenadas.z);
@@ -192,6 +193,15 @@ export class RedeViariaComponent implements OnInit {
         this.scene.add(newRoot);
 
       });
+
+
+      let sprite=new TextSprite({ text: a.Designacao,alignment: 'left',
+        color: '#000000',
+        fontFamily: '"Arial", Times, serif',
+        fontStyle: 'italic',
+        backgroundColor: '#ffffff'});
+      sprite.position.set(coordenadas.x, coordenadas.y + 3, coordenadas.z - 2);
+      this.scene.add(sprite)
 
     });
   }
