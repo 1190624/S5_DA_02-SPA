@@ -15,13 +15,14 @@
       <th><input type="text" class="header-filter" placeholder="País" [(ngModel)]="pesquisaPais"></th>
       <th><input type="text" class="header-filter" placeholder="Município" [(ngModel)]="pesquisaMunicipo"></th>
       <th><input type="text" class="header-filter" placeholder="Latitude" [(ngModel)]="pesquisaLatitude"></th>
-      <th style="border-radius: 0 5px 0 0"><input type="text" class="header-filter" placeholder="Longitude"
-          [(ngModel)]="pesquisaLongitude"></th>
+      <th><input type="text" class="header-filter" placeholder="Longitude" [(ngModel)]="pesquisaLongitude"></th>
+      <th style="border-radius: 0 5px 0 0"><input type="text" class="header-filter" placeholder="Altitude"
+          [(ngModel)]="pesquisaAltitude"></th>
     </tr>
     <tr
       *ngFor="let a of armazens | filter:'armazem':{Identificador: pesquisaIdentificador, Designacao: pesquisaDesignacao, CodigoPostal: pesquisaCodigoPostal,
       NumeroPorta: pesquisaNumeroPorta, NomeRua: pesquisaNomeRua, Localidade: pesquisaLocalidade, Pais:pesquisaPais,
-      Municipio: pesquisaMunicipo, Latitude: pesquisaLatitude, Longitude: pesquisaLongitude}">
+      Municipio: pesquisaMunicipo, Latitude: pesquisaLatitude, Longitude: pesquisaLongitude, Altitude: pesquisaAltitude}">
       <td>{{a.Identificador}}</td>
       <td>{{a.Designacao}}</td>
       <td>{{a.CodigoPostal}}</td>
@@ -32,6 +33,7 @@
       <td>{{a.Municipio}}</td>
       <td>{{a.Latitude}}</td>
       <td>{{a.Longitude}}</td>
+      <td>{{a.Altitude}}</td>
     </tr>
   </table>
 </body>

@@ -19,6 +19,7 @@ export class ListarArmazemComponent implements OnInit {
   pesquisaMunicipo: string;
   pesquisaLatitude: string;
   pesquisaLongitude: string;
+  pesquisaAltitude: string;
 
   armazens: Armazem[];
 
@@ -33,6 +34,7 @@ export class ListarArmazemComponent implements OnInit {
   municipio: string;
   latitude: number;
   longitude: number;
+  altitude: number;
 
   constructor(private service: ArmazemService, private route: ActivatedRoute, private router: Router) { }
 
