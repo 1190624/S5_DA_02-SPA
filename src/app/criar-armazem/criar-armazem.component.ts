@@ -21,6 +21,7 @@ export class CriarArmazemComponent implements OnInit {
   municipio: string;
   latitude: number;
   longitude: number;
+  altitude: number;
 
   constructor(private service: ArmazemService, private route: ActivatedRoute, private router: Router) { }
 
@@ -53,10 +54,12 @@ export class CriarArmazemComponent implements OnInit {
       alert("A latitude não é válida!");
     } else if (this.longitude < -180 ||this.longitude > 180 || this.longitude == null) {
       alert("A longitude não é válida!");
+    } else if (this.altitude < 0 || this.altitude == null) {
+      alert("A altitude não é válida!");
     } else {
 
       this.service.criarArmazem(this.identificador, this.designacao, this.codigoPostal, this.numeroPorta,
-        this.nomeRua, this.localidade, this.pais, this.municipio, this.latitude, this.longitude).subscribe(data => { alert("O armazém foi criado.") });
+        this.nomeRua, this.localidade, this.pais, this.municipio, this.latitude, this.longitude, this.altitude).subscribe(data => { alert("O armazém foi criado.") });
 
     }
   }
