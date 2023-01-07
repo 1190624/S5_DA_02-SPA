@@ -10,7 +10,7 @@ import { RotasService } from '../services/rotas/rotas.service';
 import { Object3D } from 'three';
 
 @Component({
-  selector: 'app-map',
+  selector: 'app-rede-viaria',
   templateUrl: './rede-viaria.component.html',
   styleUrls: ['./rede-viaria.component.css']
 })
@@ -28,19 +28,19 @@ export class RedeViariaComponent implements OnInit {
 
   private listaArmazensDTO: any[] = [];
   private listaRotasDTO: any[] = [];
-  private warehouseBaseGeometry = new THREE.CylinderGeometry(5, 5, 0.22, 64);
+  private rotunda = new THREE.CylinderGeometry(5, 5, 0.22, 64);
 
   constructor(private armazemService: ArmazemService, private rotasService: RotasService) {
 
   }
 
   ngOnInit(): void {
-
+    this.initialize();
+    this.animate();
   }
 
   ngAfterViewInit(): void {
-    this.initialize();
-    this.animate();
+
   }
 
   /**
@@ -149,7 +149,7 @@ export class RedeViariaComponent implements OnInit {
       let geometry, material, mesh;
       geometry = new THREE.CylinderGeometry(raio, raio, 0.1, 32);
       material = new THREE.MeshBasicMaterial({ color: 0x3ac9ad });
-      mesh = new THREE.Mesh(geometry, material);
+      mesh = new THREE.Mesh(this.rotunda, material);
       mesh.position.y = 0.1;
       object.add(mesh);
       object.name=a.Designacao;
@@ -164,7 +164,7 @@ export class RedeViariaComponent implements OnInit {
     return {
       x: (100 / (8.7613 - 8.2451)) * (armazem.Longitude - 8.2451) - 50,
       z: (100 / (42.1115 - 40.8387)) * (armazem.Latitude - 40.8387) - 50,
-      y: ((50 / 800) * armazem.Altitude) / 10
+      y: ((50 / 800) * armazem.Altitude) //10
     };
   }
 
@@ -204,7 +204,7 @@ export class RedeViariaComponent implements OnInit {
         this.scene.add(newRoot);
 
       });
-/**
+/** 
       //Billboards por cima dos armazéns
       let sprite = new TextSprite({
         text: a.Designacao, alignment: 'left',
@@ -238,17 +238,17 @@ export class RedeViariaComponent implements OnInit {
         let teta1 = Math.PI + teta0;
 
         let elemLigMaterial = [new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 })];
-        let elemLigGeometry = new THREE.BoxGeometry(0.3, 0.20, 2);
+        let elemLigGeometry = new THREE.BoxGeometry(0.3, 0.2, 2);
 
         let elemLig0Mesh = new THREE.Mesh(elemLigGeometry, elemLigMaterial);
-        elemLig0Mesh.position.set(armazem1.position.x + this.warehouseBaseGeometry.parameters.radiusTop * Math.cos(teta0), armazem1.position.y, armazem1.position.z - this.warehouseBaseGeometry.parameters.radiusTop * Math.sin(teta0));
+        elemLig0Mesh.position.set(armazem1.position.x + this.rotunda.parameters.radiusTop * Math.cos(teta0), armazem1.position.y, armazem1.position.z - this.rotunda.parameters.radiusTop * Math.sin(teta0));
         elemLig0Mesh.rotateY(teta0)
         elemLig0Mesh.castShadow = true;
         elemLig0Mesh.receiveShadow = true;
         this.scene.add(elemLig0Mesh)
 
         let elemLig1Mesh = new THREE.Mesh(elemLigGeometry, elemLigMaterial);
-        elemLig1Mesh.position.set(armazem2.position.x + this.warehouseBaseGeometry.parameters.radiusTop * Math.cos(teta1), armazem2.position.y, armazem2.position.z - this.warehouseBaseGeometry.parameters.radiusTop * Math.sin(teta1));
+        elemLig1Mesh.position.set(armazem2.position.x + this.rotunda.parameters.radiusTop * Math.cos(teta1), armazem2.position.y, armazem2.position.z - this.rotunda.parameters.radiusTop * Math.sin(teta1));
         elemLig1Mesh.rotateY(teta1)
         elemLig1Mesh.castShadow = true;
         elemLig1Mesh.receiveShadow = true;
