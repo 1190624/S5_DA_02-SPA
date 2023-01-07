@@ -28,7 +28,7 @@ export class RedeViariaComponent implements OnInit {
 
   private listaArmazensDTO: any[] = [];
   private listaRotasDTO: any[] = [];
-  private rotunda = new THREE.CylinderGeometry(5, 5, 0.22, 64);
+  private rotunda = new THREE.CylinderGeometry(3, 3, 0.1, 32);
 
   constructor(private armazemService: ArmazemService, private rotasService: RotasService) {
 
@@ -57,8 +57,9 @@ export class RedeViariaComponent implements OnInit {
 
     // adição de uma fonte de iluminação
     const color = 0xFFFFFF;
-    const intensity = 1;
+    const intensity = 8;
     const light = new THREE.SpotLight(color, intensity);
+    light.castShadow = true;
     light.position.set(100, 100, 100);
     light.angle = THREE.MathUtils.degToRad(30);
     light.penumbra = 0.4;
@@ -147,16 +148,34 @@ export class RedeViariaComponent implements OnInit {
       let coordenadas = this.transformarCoordenadas(a);
 
       let geometry, material, mesh;
-      geometry = new THREE.CylinderGeometry(raio, raio, 0.1, 32);
-      material = new THREE.MeshBasicMaterial({ color: 0x3ac9ad });
+      //geometry = new THREE.CylinderGeometry(raio, raio, 0.1, 32);
+      material = new THREE.MeshBasicMaterial({ color: 0x37373f });
       mesh = new THREE.Mesh(this.rotunda, material);
       mesh.position.y = 0.1;
       object.add(mesh);
-      object.name=a.Designacao;
+      object.name = a.Designacao;
       object.position.set(coordenadas.x, coordenadas.y, coordenadas.z);
       object.castShadow = true;
       object.receiveShadow = true;
       this.scene.add(object);
+      const gltfLoader2 = new GLTFLoader();
+
+      gltfLoader2.load('../../assets/rotunda/scene.gltf', (gltf) => {
+        let root = gltf.scene;
+        let newRoot = root.clone();
+        newRoot.castShadow = true;
+        newRoot.receiveShadow = true;
+        newRoot.scale.set(0.09, 0.09, 0.09);
+
+
+        //posição diretamente em cima da rotunda
+        //newRoot.position.set(armazem.coordenadas.x - 1, armazem.coordenadas.y-0.2, armazem.coordenadas.z);
+
+        //posição ao lado
+        newRoot.position.set(coordenadas.x, coordenadas.y + 0.1, coordenadas.z);
+
+        this.scene.add(newRoot);
+      });
     });
   }
 
@@ -164,7 +183,7 @@ export class RedeViariaComponent implements OnInit {
     return {
       x: (100 / (8.7613 - 8.2451)) * (armazem.Longitude - 8.2451) - 50,
       z: (100 / (42.1115 - 40.8387)) * (armazem.Latitude - 40.8387) - 50,
-      y: ((50 / 800) * armazem.Altitude) //10
+      y: ((50 / 800) * armazem.Altitude) // 10
     };
   }
 
@@ -199,23 +218,23 @@ export class RedeViariaComponent implements OnInit {
         //newRoot.position.set(armazem.coordenadas.x - 1, armazem.coordenadas.y-0.2, armazem.coordenadas.z);
 
         //posição ao lado
-        newRoot.position.set(coordenadas.x, coordenadas.y, coordenadas.z - 2);
+        newRoot.position.set(coordenadas.x, coordenadas.y, coordenadas.z - 3);
 
         this.scene.add(newRoot);
 
       });
-/** 
-      //Billboards por cima dos armazéns
-      let sprite = new TextSprite({
-        text: a.Designacao, alignment: 'left',
-        color: '#000000',
-        fontFamily: '"Arial", Times, serif',
-        fontStyle: 'italic',
-        backgroundColor: '#ffffff'
-      });
-      sprite.position.set(coordenadas.x, coordenadas.y + 3, coordenadas.z - 2);
-      this.scene.add(sprite)
-*/
+      /** 
+            //Billboards por cima dos armazéns
+            let sprite = new TextSprite({
+              text: a.Designacao, alignment: 'left',
+              color: '#000000',
+              fontFamily: '"Arial", Times, serif',
+              fontStyle: 'italic',
+              backgroundColor: '#ffffff'
+            });
+            sprite.position.set(coordenadas.x, coordenadas.y + 3, coordenadas.z - 2);
+            this.scene.add(sprite)
+      */
     });
   }
 
@@ -229,42 +248,73 @@ export class RedeViariaComponent implements OnInit {
     });
     console.log(this.listaRotasDTO);
 
+    let loader = new THREE.TextureLoader();
+    var texturaElemLig = loader.load('../../assets/estrada.jpg', function (texture) {
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      texture.offset.set(0, 0);
+      texture.repeat.set(0.5, 1);
+    });
+
+    let elemLigMaterial = [
+      new THREE.MeshBasicMaterial({ color: 0x37373f }), //right side
+      new THREE.MeshBasicMaterial({ color: 0x37373f }), //left side
+      new THREE.MeshBasicMaterial({ map: texturaElemLig }), //top side
+      new THREE.MeshBasicMaterial({ color: 0x37373f }), //bottom side
+      new THREE.MeshBasicMaterial({ color: 0x37373f }), //front side
+      new THREE.MeshBasicMaterial({ color: 0x37373f }), //back side
+    ];
+
     for (let i = 0; i < this.listaRotasDTO.length; i++) {
       let armazem1 = <Object3D>this.scene.getObjectByName((this.listaRotasDTO[i].origem));
       let armazem2 = <Object3D>this.scene.getObjectByName((this.listaRotasDTO[i].destino));
 
       if (armazem1 != null && armazem2 != null) {
-        let teta0 = Math.atan2(-(armazem2.position.z - armazem1.position.z), armazem2.position.x - armazem1.position.x);
-        let teta1 = Math.PI + teta0;
+        let teta1 = Math.atan2(-(armazem2.position.z - armazem1.position.z), armazem2.position.x - armazem1.position.x);
+        let teta2 = Math.PI + teta1;
 
-        let elemLigMaterial = [new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 })];
-        let elemLigGeometry = new THREE.BoxGeometry(0.3, 0.2, 2);
-
-        let elemLig0Mesh = new THREE.Mesh(elemLigGeometry, elemLigMaterial);
-        elemLig0Mesh.position.set(armazem1.position.x + this.rotunda.parameters.radiusTop * Math.cos(teta0), armazem1.position.y, armazem1.position.z - this.rotunda.parameters.radiusTop * Math.sin(teta0));
-        elemLig0Mesh.rotateY(teta0)
-        elemLig0Mesh.castShadow = true;
-        elemLig0Mesh.receiveShadow = true;
-        this.scene.add(elemLig0Mesh)
+        let elemLigGeometry = new THREE.BoxGeometry(1, 0.2, 2);
 
         let elemLig1Mesh = new THREE.Mesh(elemLigGeometry, elemLigMaterial);
-        elemLig1Mesh.position.set(armazem2.position.x + this.rotunda.parameters.radiusTop * Math.cos(teta1), armazem2.position.y, armazem2.position.z - this.rotunda.parameters.radiusTop * Math.sin(teta1));
+        elemLig1Mesh.position.set(armazem1.position.x + this.rotunda.parameters.radiusTop * Math.cos(teta1), armazem1.position.y, armazem1.position.z - this.rotunda.parameters.radiusTop * Math.sin(teta1));
         elemLig1Mesh.rotateY(teta1)
         elemLig1Mesh.castShadow = true;
         elemLig1Mesh.receiveShadow = true;
         this.scene.add(elemLig1Mesh)
 
-        let roadMaterial = [new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 }), new THREE.MeshLambertMaterial({ color: 0x000000 })];
-        let roadGeometry = new THREE.BoxGeometry(2, 0.20, Math.sqrt(Math.pow(elemLig0Mesh.position.x - elemLig1Mesh.position.x, 2) + Math.pow(elemLig0Mesh.position.y - elemLig1Mesh.position.y, 2) + Math.pow(elemLig0Mesh.position.z - elemLig1Mesh.position.z, 2)));
-        let roadMesh = new THREE.Mesh(roadGeometry, roadMaterial);
+        let elemLig2Mesh = new THREE.Mesh(elemLigGeometry, elemLigMaterial);
+        elemLig2Mesh.position.set(armazem2.position.x + this.rotunda.parameters.radiusTop * Math.cos(teta2), armazem2.position.y, armazem2.position.z - this.rotunda.parameters.radiusTop * Math.sin(teta2));
+        elemLig2Mesh.rotateY(teta2)
+        elemLig2Mesh.castShadow = true;
+        elemLig2Mesh.receiveShadow = true;
+        this.scene.add(elemLig2Mesh)
 
-        roadMesh.position.set((elemLig0Mesh.position.x + elemLig1Mesh.position.x) / 2, (elemLig0Mesh.position.y + elemLig1Mesh.position.y) / 2, (elemLig0Mesh.position.z + elemLig1Mesh.position.z) / 2);
+        let roadGeometry = new THREE.BoxGeometry(2, 0.20, Math.sqrt(Math.pow(elemLig1Mesh.position.x - elemLig2Mesh.position.x, 2) + Math.pow(elemLig1Mesh.position.y - elemLig2Mesh.position.y, 2) + Math.pow(elemLig1Mesh.position.z - elemLig2Mesh.position.z, 2)));
+        var texturaEstrada = loader.load('../../assets/estrada.jpg', function (texture) {
+          texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+          texture.offset.set(0, 0);
+          texture.repeat.set(Math.sqrt(Math.pow(elemLig1Mesh.position.x - elemLig2Mesh.position.x, 2) + Math.pow(elemLig1Mesh.position.y - elemLig2Mesh.position.y, 2) + Math.pow(elemLig1Mesh.position.z - elemLig2Mesh.position.z, 2)) / 5, 1);
+          texture.rotation = Math.PI / 2;
+        });
+
+        let estradaMaterial = [
+          new THREE.MeshBasicMaterial({ color: 0x37373f }), //right side
+          new THREE.MeshBasicMaterial({ color: 0x37373f }), //left side
+          new THREE.MeshBasicMaterial({ map: texturaEstrada }), //top side
+          new THREE.MeshBasicMaterial({ color: 0x37373f }), //bottom side
+          new THREE.MeshBasicMaterial({ color: 0x37373f }), //front side
+          new THREE.MeshBasicMaterial({ color: 0x37373f }), //back side
+        ];
+        let roadMesh = new THREE.Mesh(roadGeometry, estradaMaterial);
+
+        roadMesh.position.set((elemLig1Mesh.position.x + elemLig2Mesh.position.x) / 2,
+        (elemLig1Mesh.position.y + elemLig2Mesh.position.y) / 2,
+        (elemLig1Mesh.position.z + elemLig2Mesh.position.z) / 2);
         roadMesh.castShadow = true;
         roadMesh.receiveShadow = true;
         this.scene.add(roadMesh)
 
-        let beta = Math.asin((elemLig0Mesh.position.y - elemLig1Mesh.position.y) / roadGeometry.parameters.depth);
-        let omega = teta0 + Math.PI / 2;
+        let beta = Math.asin((elemLig1Mesh.position.y - elemLig2Mesh.position.y) / roadGeometry.parameters.depth);
+        let omega = teta1 + Math.PI / 2;
         roadMesh.rotation.set(beta, omega, 0, "ZYX")
 
         //this.roadsData.set(this.routes[i].routeId, [teta0, teta1, elemLig0Mesh.position.x, elemLig0Mesh.position.y, elemLig0Mesh.position.z, elemLig1Mesh.position.x, elemLig1Mesh.position.y, elemLig1Mesh.position.z, roadMesh.position.x, roadMesh.position.y, roadMesh.position.z, beta, (teta0 + Math.PI / 2)])
@@ -293,6 +343,7 @@ export class RedeViariaComponent implements OnInit {
   }
 
   private render() {
+    this.renderer.shadowMap.enabled = true;
     this.renderer.render(this.scene, this.camera);
     this.labelRenderer.render(this.scene, this.camera);
   }
