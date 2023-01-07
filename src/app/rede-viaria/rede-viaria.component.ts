@@ -164,8 +164,7 @@ export class RedeViariaComponent implements OnInit {
     return {
       x: (100 / (8.7613 - 8.2451)) * (armazem.Longitude - 8.2451) - 50,
       z: (100 / (42.1115 - 40.8387)) * (armazem.Latitude - 40.8387) - 50,
-      y: 2
-      //y: ((50 / 800) * armazem.alt) / 10
+      y: ((50 / 800) * armazem.Altitude) / 10
     };
   }
 
