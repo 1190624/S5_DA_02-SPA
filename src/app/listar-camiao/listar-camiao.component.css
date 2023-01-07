@@ -54,7 +54,7 @@ tr:hover {
 
 .header-filter {
     border: none;
-    max-width: auto;
+    max-width: 165px;
     padding: 4px 4px;
     text-align: center;
 }
