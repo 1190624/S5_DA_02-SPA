@@ -13,11 +13,12 @@ export class ArmazemService {
 
 
   criarArmazem(identificador: string, designacao: string, codigoPostal: string, numeroPorta: number, nomeRua: string, localidade: string,
-    pais: string, municipio: string, latitude: number, longitude: number): Observable<any> {
+    pais: string, municipio: string, latitude: number, longitude: number, altitude: number): Observable<any> {
 
     const body = {
       "identificador": identificador, "designacao": designacao, "codigoPostal": codigoPostal, "numeroPorta": numeroPorta,
-      "nomeRua": nomeRua, "localidade": localidade, "pais": pais, "municipio": municipio, "latitude": latitude, "longitude": longitude
+      "nomeRua": nomeRua, "localidade": localidade, "pais": pais, "municipio": municipio, "latitude": latitude, "longitude": longitude,
+      "altitude": altitude
     }
     console.log(body);
 
@@ -35,40 +36,6 @@ export class ArmazemService {
 
   getArmazens(): Observable<any> {
     return this.httpClient.get(this.url).pipe(map(this.extractData));
-  }
-
-  listaArmazens(): void {
-
-    let tbody = document.getElementById('tbody') as HTMLTableElement;
-    let array = this.getArmazens();
-
-    array.forEach(function (i) {
-      for (let j = 0; j < i.length; j++) {
-        let tr = tbody.insertRow();
-
-        let td_identificador = tr.insertCell();
-        let td_designacao = tr.insertCell();
-        let td_codigoPostal = tr.insertCell();
-        let td_numeroPorta = tr.insertCell();
-        let td_nomeRua = tr.insertCell();
-        let td_localidade = tr.insertCell();
-        let td_pais = tr.insertCell();
-        let td_municipio = tr.insertCell();
-        let td_latitude = tr.insertCell();
-        let td_longitude = tr.insertCell();
-
-        td_identificador.innerText = i[j].Identificador;
-        td_designacao.innerText = i[j].Designação;
-        td_codigoPostal.innerText = i[j].CódigoPostal;
-        td_numeroPorta.innerText = i[j].NúmeroPorta;
-        td_nomeRua.innerText = i[j].NomeRua;
-        td_localidade.innerText = i[j].Localidade;
-        td_pais.innerText = i[j].País;
-        td_municipio.innerText = i[j].Munícipio;
-        td_latitude.innerText = i[j].Latitude;
-        td_longitude.innerText = i[j].Longitude;
-      }
-    });
   }
 
   public extractData(res: any) {

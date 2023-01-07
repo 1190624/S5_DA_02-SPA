@@ -35,21 +35,21 @@ describe('ArmazemService', () => {
     it('deve criar um Armazém e retorná-lo', () => {
 
       const a: Armazem = {
-        identificador: "A10",
-        designacao: "Armazém 10",
-        codigoPostal: "2100-100",
-        numeroPorta: 100,
-        nomeRua: "Rua do Porto",
-        localidade: "Porto",
-        pais: "Portugal",
-        municipio: "Paranhos",
-        latitude: 20.10,
-        longitude: 20.10
+        Identificador: "A10",
+        Designacao: "Armazém 10",
+        CodigoPostal: "2100-100",
+        NumeroPorta: 100,
+        NomeRua: "Rua do Porto",
+        Localidade: "Porto",
+        Pais: "Portugal",
+        Municipio: "Paranhos",
+        Latitude: 20.10,
+        Longitude: 20.10
       };
 
-      service.criarArmazem(a.identificador, a.designacao, a.codigoPostal,
-        a.numeroPorta, a.nomeRua, a.localidade, a.pais, a.municipio,
-        a.latitude, a.longitude).subscribe(data => expect(data)
+      service.criarArmazem(a.Identificador, a.Designacao, a.CodigoPostal,
+        a.NumeroPorta, a.NomeRua, a.Localidade, a.Pais, a.Municipio,
+        a.Latitude, a.Longitude).subscribe(data => expect(data)
           .toEqual(a, 'deve retornar o Armazém'), fail);
 
 

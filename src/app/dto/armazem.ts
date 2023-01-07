@@ -9,9 +9,10 @@ export class Armazem{
     Municipio: string;
     Latitude: number;
     Longitude: number;
+    Altitude: number;
 
     constructor(identificador: string, designacao: string, codigoPostal: string, numeroPorta: number,
-        nomeRua: string, localidade: string, pais: string, municipio: string, latitude: number, longitude: number){
+        nomeRua: string, localidade: string, pais: string, municipio: string, latitude: number, longitude: number, altitude: number){
             this.Identificador = identificador;
             this.Designacao = designacao;
             this.CodigoPostal = codigoPostal;
@@ -22,5 +23,6 @@ export class Armazem{
             this.Municipio = municipio;
             this.Latitude = latitude;
             this.Longitude = longitude;
+            this.Altitude = altitude;
         } 
 }
