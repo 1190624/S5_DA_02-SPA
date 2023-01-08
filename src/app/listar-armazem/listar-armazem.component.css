@@ -51,7 +51,25 @@ tr:hover {
 .header-filter {
     align-self: left;
     border:none;
-    max-width: 135px;
+    max-width: 114.4px;
     padding: 10px 1px;
     text-align: center;
 }
+
+button {
+    width: 100%;
+    border: 1px solid #927000;
+  }
+
+  button {
+    background: transparent;
+    width: 100%;
+    border: 0;
+  }
+  
+  button:hover,
+  button:focus {
+    color: white;
+    background: #927000;
+    outline: 0;
+  }

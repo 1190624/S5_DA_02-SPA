@@ -20,6 +20,7 @@ export class ListarArmazemComponent implements OnInit {
   pesquisaLatitude: string;
   pesquisaLongitude: string;
   pesquisaAltitude: string;
+  pesquisaEstado: string;
 
   armazens: Armazem[];
 
@@ -35,6 +36,7 @@ export class ListarArmazemComponent implements OnInit {
   latitude: number;
   longitude: number;
   altitude: number;
+  estado: boolean;
 
   constructor(private service: ArmazemService, private route: ActivatedRoute, private router: Router) { }
 
@@ -47,5 +49,9 @@ export class ListarArmazemComponent implements OnInit {
     this.service.getArmazens().subscribe(data => {
       this.armazens = data;
     });
+  }
+
+  mudarEstado(id: string): void {
+    this.service.mudarEstado(id).subscribe(data => { alert("O estado do camião foi atualizado.") });
   }
 }
