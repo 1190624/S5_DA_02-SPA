@@ -29,6 +29,10 @@ export class RedeViariaComponent implements OnInit {
   private listaArmazensDTO: any[] = [];
   private listaRotasDTO: any[] = [];
   private rotunda = new THREE.CylinderGeometry(3, 3, 0.1, 32);
+  
+  private somAmbienteLoader = new THREE.AudioLoader();
+  private ambienteListener=new THREE.AudioListener();
+  private ambienteAudio=new THREE.Audio(this.ambienteListener);
 
   constructor(private armazemService: ArmazemService, private rotasService: RotasService) {
 
@@ -65,7 +69,7 @@ export class RedeViariaComponent implements OnInit {
     light.penumbra = 0.4;
     this.scene.add(light);
     this.scene.add(light.target);
-    
+
 
 
     const ambientlight = new THREE.AmbientLight(color, 0.3);
@@ -114,6 +118,7 @@ export class RedeViariaComponent implements OnInit {
     this.createArmazens();
     this.createEstradas();
     this.createCamioes();
+    this.adicionarSons();
 
     window.addEventListener('resize', this.windowResize.bind(this));
   }
@@ -435,5 +440,21 @@ export class RedeViariaComponent implements OnInit {
     this.renderer.shadowMap.enabled = true;
     this.renderer.render(this.scene, this.camera);
     this.labelRenderer.render(this.scene, this.camera);
+  }
+
+  private adicionarSons() {
+    /* this.ambientSoundLoader.load( 'assets/network/audio/Burn it Down.mp3', (buffer) => {
+   this.ambientAudio.setBuffer( buffer );
+   this.ambientAudio.setLoop( true );
+   this.ambientAudio.setVolume( 0.5 );
+   this.ambientAudio.play();
+ });*/
+
+    this.somAmbienteLoader.load('../../assets/background.mp3', (buffer) => {
+      this.ambienteAudio.setBuffer(buffer);
+      this.ambienteAudio.setLoop(true);
+      this.ambienteAudio.setVolume(0.3);
+      this.ambienteAudio.play();
+    });
   }
 }
