@@ -6,20 +6,19 @@
   <h1><i class='bx bxs-package'></i> Lista de Entregas</h1>
   <table id="tbody">
     <tr>
-      <th style="border-radius: 5px 0 0 0"><input type="text" class="header-filter" placeholder="ID"
-          [(ngModel)]="pesquisaIdentificador"></th>
-      <th><input type="text" class="header-filter" placeholder="ID do Armazém" [(ngModel)]="pesquisaArmazemID"></th>
-      <th><input type="text" class="header-filter" placeholder="Dia" [(ngModel)]="pesquisaDia"></th>
-      <th><input type="text" class="header-filter" placeholder="Mês" [(ngModel)]="pesquisaMes"></th>
-      <th><input type="text" class="header-filter" placeholder="Ano" [(ngModel)]="pesquisaAno"></th>
-      <th><input type="text" class="header-filter" placeholder="Massa" [(ngModel)]="pesquisaMassa"></th>
-      <th><input type="text" class="header-filter" placeholder="Tempo de Colocação" [(ngModel)]="pesquisaTempoColocacao"></th>
-      <th style="border-radius: 0 5px 0 0"><input type="text" class="header-filter" placeholder="Tempo de Retirada" [(ngModel)]="pesquisaTempoRetirada"></th>
+      <th style="border-radius: 5px 0 0 0"(click)="sort('Identificador')"><i class ="fa fa-sort"></i><input type="text" class="header-filter" placeholder="ID"[(ngModel)]="pesquisaIdentificador"></th>
+      <th (click)="sort('ArmazemId')"><i class ="fa fa-sort"></i><input type="text" class="header-filter" placeholder="ID do Armazém" [(ngModel)]="pesquisaArmazemID"></th>
+      <th (click)="sort('Dia')"><i class ="fa fa-sort"></i><input type="text" class="header-filter" placeholder="Dia" [(ngModel)]="pesquisaDia"></th>
+      <th (click)="sort('Mes')"><i class ="fa fa-sort"></i><input type="text" class="header-filter" placeholder="Mês" [(ngModel)]="pesquisaMes"></th>
+      <th (click)="sort('Ano')"><i class ="fa fa-sort"></i><input type="text" class="header-filter" placeholder="Ano" [(ngModel)]="pesquisaAno"></th>
+      <th (click)="sort('Massa')"><i class ="fa fa-sort"></i><input type="text" class="header-filter" placeholder="Massa" [(ngModel)]="pesquisaMassa"></th>
+      <th (click)="sort('TempoColocacao')"><i class ="fa fa-sort"></i><input type="text" class="header-filter" placeholder="Tempo de Colocação" [(ngModel)]="pesquisaTempoColocacao"></th>
+      <th (click)="sort('TempoRetirada')" style="border-radius: 0 5px 0 0"><i class ="fa fa-sort"></i><input type="text" class="header-filter" placeholder="Tempo de Retirada" [(ngModel)]="pesquisaTempoRetirada"></th>
     </tr>
     <tr
       *ngFor="let a of entregas | filter:'entrega':{Identificador: pesquisaIdentificador, ArmazemId: pesquisaArmazemID, Dia: pesquisaDia,
       Mes: pesquisaMes, Ano: pesquisaAno, Massa: pesquisaMassa, TempoColocacao:pesquisaTempoColocacao,
-      TempoRetirada: pesquisaTempoRetirada}">
+      TempoRetirada: pesquisaTempoRetirada} | orderBy: key: reverse">
       <td>{{a.Identificador}}</td>
       <td>{{a.ArmazemId}}</td>
       <td>{{a.Dia}}</td>
