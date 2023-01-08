@@ -8,6 +8,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import TextSprite from '@seregpie/three.text-sprite';
 import { RotasService } from '../services/rotas/rotas.service';
 import { Mesh, Object3D } from 'three';
+import { nextPowerOfTwo } from 'three/src/math/MathUtils';
 
 @Component({
   selector: 'app-rede-viaria',
@@ -29,10 +30,14 @@ export class RedeViariaComponent implements OnInit {
   private listaArmazensDTO: any[] = [];
   private listaRotasDTO: any[] = [];
   private rotunda = new THREE.CylinderGeometry(3, 3, 0.1, 32);
-  
+
   private somAmbienteLoader = new THREE.AudioLoader();
-  private ambienteListener=new THREE.AudioListener();
-  private ambienteAudio=new THREE.Audio(this.ambienteListener);
+  private ambienteListener = new THREE.AudioListener();
+  private ambienteAudio = new THREE.Audio(this.ambienteListener);
+
+  private somCamiaoLoader = new THREE.AudioLoader();
+  private camiaoListener = new THREE.AudioListener();
+  private camiaoAudio = new THREE.Audio(this.camiaoListener);
 
   constructor(private armazemService: ArmazemService, private rotasService: RotasService) {
 
@@ -76,8 +81,8 @@ export class RedeViariaComponent implements OnInit {
     this.scene.add(ambientlight);
 
     //ajuda para saber a origem da luz qual é o comprimento que é projetada
-    const helper = new THREE.SpotLightHelper(light);
-    this.scene.add(helper);
+    //const helper = new THREE.SpotLightHelper(light);
+    //this.scene.add(helper);
 
     //this.renderer.shadowMap.enable = true;
 
@@ -355,9 +360,17 @@ export class RedeViariaComponent implements OnInit {
       newRoot.receiveShadow = true;
       newRoot.scale.set(0.4, 0.4, 0.4);
 
-      newRoot.position.set(2, 2, 2);
+      newRoot.position.set(0, 2.9, 2.5);
+      newRoot.rotateY(Math.PI/4);
 
-      this.scene.add(newRoot);
+      this.scene.add(newRoot)
+    });
+
+    this.somCamiaoLoader.load('../../assets/camiao.mp3', (buffer) => {
+      this.camiaoAudio.setBuffer(buffer);
+      this.camiaoAudio.setLoop(true);
+      this.camiaoAudio.setVolume(0.1);
+      this.camiaoAudio.play();
     });
   }
 
@@ -443,17 +456,11 @@ export class RedeViariaComponent implements OnInit {
   }
 
   private adicionarSons() {
-    /* this.ambientSoundLoader.load( 'assets/network/audio/Burn it Down.mp3', (buffer) => {
-   this.ambientAudio.setBuffer( buffer );
-   this.ambientAudio.setLoop( true );
-   this.ambientAudio.setVolume( 0.5 );
-   this.ambientAudio.play();
- });*/
 
     this.somAmbienteLoader.load('../../assets/background.mp3', (buffer) => {
       this.ambienteAudio.setBuffer(buffer);
       this.ambienteAudio.setLoop(true);
-      this.ambienteAudio.setVolume(0.3);
+      this.ambienteAudio.setVolume(0.1);
       this.ambienteAudio.play();
     });
   }
