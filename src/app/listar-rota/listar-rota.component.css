@@ -55,3 +55,7 @@ tr:hover {
     padding: 10px 9px;
     text-align: center;
 }
+
+.pagination-controls {
+    position: right;
+}
