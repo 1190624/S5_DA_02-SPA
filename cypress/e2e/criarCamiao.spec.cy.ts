@@ -1,7 +1,7 @@
 describe('empty spec', () => {
 
   beforeEach(() => {
-    cy.visit('https://s5-da-02-rejcwmmfc-1190624.vercel.app/dashboard')
+    cy.visit('https://s5-da-02-spa.vercel.app/dashboard')
 
 
     cy.contains('Camiões').click({force: true})
