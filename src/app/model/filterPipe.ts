@@ -173,7 +173,8 @@ export class FilterPipe implements PipeTransform {
     } else if (domainType === "armazem") {
 
       if (!params.Identificador && !params.Designacao && !params.CodigoPostal && !params.NumeroPorta && !params.NomeRua &&
-        !params.Localidade && !params.Pais && !params.Municipio && !params.Latitude && !params.Longitude) {
+        !params.Localidade && !params.Pais && !params.Municipio && !params.Latitude && !params.Longitude && !params.Altitude &&
+        !params.Estado) {
         return items
       }
 
@@ -234,6 +235,18 @@ export class FilterPipe implements PipeTransform {
       if (params.Longitude) {
         finalList = finalList.filter((singleItem) =>
           singleItem['Longitude'].toString().includes(params.Longitude.toLowerCase())
+        );
+      }
+
+      if (params.Altitude) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['Altitude'].toString().includes(params.Altitude.toLowerCase())
+        );
+      }
+
+      if (params.Estado) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['Estado'].toString().includes(params.Estado.toLowerCase())
         );
       }
     }
