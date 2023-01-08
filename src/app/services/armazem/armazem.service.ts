@@ -38,6 +38,10 @@ export class ArmazemService {
     return this.httpClient.get(this.url).pipe(map(this.extractData));
   }
 
+  mudarEstado(id: string): Observable<any> {
+    return this.httpClient.put(this.url + "/desativar/" + id, null).pipe(map(this.extractData));
+  }
+
   public extractData(res: any) {
     return res || {};
   }
