@@ -1,0 +1,11 @@
+Model Information:
+* title:	Airport Catering Truck
+* source:	https://sketchfab.com/3d-models/airport-catering-truck-289f4e2cfa3f4722b0476b1fc37681d8
+* author:	spot1studios (https://sketchfab.com/spot1studios)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Airport Catering Truck" (https://sketchfab.com/3d-models/airport-catering-truck-289f4e2cfa3f4722b0476b1fc37681d8) by spot1studios (https://sketchfab.com/spot1studios) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
