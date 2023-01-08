@@ -57,7 +57,7 @@ export class RedeViariaComponent implements OnInit {
 
     // adição de uma fonte de iluminação
     const color = 0xFFFFFF;
-    const intensity = 8;
+    const intensity = 1.3;
     const light = new THREE.SpotLight(color, intensity);
     light.castShadow = true;
     light.position.set(100, 100, 100);
@@ -65,6 +65,10 @@ export class RedeViariaComponent implements OnInit {
     light.penumbra = 0.4;
     this.scene.add(light);
     this.scene.add(light.target);
+
+
+    const ambientlight = new THREE.AmbientLight(color, 0.3);
+    this.scene.add(ambientlight);
 
     //ajuda para saber a origem da luz qual é o comprimento que é projetada
     const helper = new THREE.SpotLightHelper(light);
@@ -108,9 +112,7 @@ export class RedeViariaComponent implements OnInit {
     this.createRotundas();
     this.createArmazens();
     this.createEstradas();
-    //this.createMiniMapView();
-    //this.addLigths();
-    //this.createRenderer();
+    this.createCamioes();
 
     window.addEventListener('resize', this.windowResize.bind(this));
   }
@@ -166,12 +168,8 @@ export class RedeViariaComponent implements OnInit {
         newRoot.castShadow = true;
         newRoot.receiveShadow = true;
         newRoot.scale.set(0.09, 0.09, 0.09);
+        newRoot
 
-
-        //posição diretamente em cima da rotunda
-        //newRoot.position.set(armazem.coordenadas.x - 1, armazem.coordenadas.y-0.2, armazem.coordenadas.z);
-
-        //posição ao lado
         newRoot.position.set(coordenadas.x, coordenadas.y + 0.1, coordenadas.z);
 
         this.scene.add(newRoot);
@@ -183,7 +181,7 @@ export class RedeViariaComponent implements OnInit {
     return {
       x: (100 / (8.7613 - 8.2451)) * (armazem.Longitude - 8.2451) - 50,
       z: (100 / (42.1115 - 40.8387)) * (armazem.Latitude - 40.8387) - 50,
-      y: ((50 / 800) * armazem.Altitude) // 10
+      y: ((50 / 800) * armazem.Altitude) / 5
     };
   }
 
@@ -206,19 +204,18 @@ export class RedeViariaComponent implements OnInit {
 
     this.listaArmazensDTO.forEach(a => {
       let coordenadas = this.transformarCoordenadas(a);
-      gltfLoader.load('../../assets/armazem.gltf', (gltf) => {
+      gltfLoader.load('../../assets/armazem/scene.gltf', (gltf) => {
         let root = gltf.scene;
         let newRoot = root.clone();
         newRoot.castShadow = true;
         newRoot.receiveShadow = true;
-        newRoot.scale.set(0.5, 0.5, 0.5);
-
+        newRoot.scale.set(0.0005, 0.0005, 0.0005);
 
         //posição diretamente em cima da rotunda
         //newRoot.position.set(armazem.coordenadas.x - 1, armazem.coordenadas.y-0.2, armazem.coordenadas.z);
 
         //posição ao lado
-        newRoot.position.set(coordenadas.x, coordenadas.y, coordenadas.z - 3);
+        newRoot.position.set(coordenadas.x, coordenadas.y, coordenadas.z - 5);
 
         this.scene.add(newRoot);
 
@@ -232,7 +229,7 @@ export class RedeViariaComponent implements OnInit {
               fontStyle: 'italic',
               backgroundColor: '#ffffff'
             });
-            sprite.position.set(coordenadas.x, coordenadas.y + 3, coordenadas.z - 2);
+            sprite.position.set(coordenadas.x, coordenadas.y + 3, coordenadas.z - 5);
             this.scene.add(sprite)
       */
     });
@@ -252,7 +249,7 @@ export class RedeViariaComponent implements OnInit {
     var texturaElemLig = loader.load('../../assets/estrada.jpg', function (texture) {
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
       texture.offset.set(0, 0);
-      texture.repeat.set(0.5, 1);
+      texture.repeat.set(0.2, 1);
     });
 
     let elemLigMaterial = [
@@ -288,7 +285,7 @@ export class RedeViariaComponent implements OnInit {
         elemLig2Mesh.receiveShadow = true;
         this.scene.add(elemLig2Mesh)
 
-        let roadGeometry = new THREE.BoxGeometry(2, 0.20, Math.sqrt(Math.pow(elemLig1Mesh.position.x - elemLig2Mesh.position.x, 2) + Math.pow(elemLig1Mesh.position.y - elemLig2Mesh.position.y, 2) + Math.pow(elemLig1Mesh.position.z - elemLig2Mesh.position.z, 2)));
+        let estradaGeometry = new THREE.BoxGeometry(2, 0.20, Math.sqrt(Math.pow(elemLig1Mesh.position.x - elemLig2Mesh.position.x, 2) + Math.pow(elemLig1Mesh.position.y - elemLig2Mesh.position.y, 2) + Math.pow(elemLig1Mesh.position.z - elemLig2Mesh.position.z, 2)));
         var texturaEstrada = loader.load('../../assets/estrada.jpg', function (texture) {
           texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
           texture.offset.set(0, 0);
@@ -304,23 +301,97 @@ export class RedeViariaComponent implements OnInit {
           new THREE.MeshBasicMaterial({ color: 0x37373f }), //front side
           new THREE.MeshBasicMaterial({ color: 0x37373f }), //back side
         ];
-        let roadMesh = new THREE.Mesh(roadGeometry, estradaMaterial);
+        let estradaMesh = new THREE.Mesh(estradaGeometry, estradaMaterial);
 
-        roadMesh.position.set((elemLig1Mesh.position.x + elemLig2Mesh.position.x) / 2,
-        (elemLig1Mesh.position.y + elemLig2Mesh.position.y) / 2,
-        (elemLig1Mesh.position.z + elemLig2Mesh.position.z) / 2);
-        roadMesh.castShadow = true;
-        roadMesh.receiveShadow = true;
-        this.scene.add(roadMesh)
+        estradaMesh.position.set((elemLig1Mesh.position.x + elemLig2Mesh.position.x) / 2,
+          (elemLig1Mesh.position.y + elemLig2Mesh.position.y) / 2,
+          (elemLig1Mesh.position.z + elemLig2Mesh.position.z) / 2);
+        estradaMesh.castShadow = true;
+        estradaMesh.receiveShadow = true;
+        this.scene.add(estradaMesh)
 
-        let beta = Math.asin((elemLig1Mesh.position.y - elemLig2Mesh.position.y) / roadGeometry.parameters.depth);
+        let beta = Math.asin((elemLig1Mesh.position.y - elemLig2Mesh.position.y) / estradaGeometry.parameters.depth);
         let omega = teta1 + Math.PI / 2;
-        roadMesh.rotation.set(beta, omega, 0, "ZYX")
+        estradaMesh.rotation.set(beta, omega, 0, "ZYX")
 
         //this.roadsData.set(this.routes[i].routeId, [teta0, teta1, elemLig0Mesh.position.x, elemLig0Mesh.position.y, elemLig0Mesh.position.z, elemLig1Mesh.position.x, elemLig1Mesh.position.y, elemLig1Mesh.position.z, roadMesh.position.x, roadMesh.position.y, roadMesh.position.z, beta, (teta0 + Math.PI / 2)])
       }
     }
   }
+
+  /**
+   * CAMIOES
+   */
+  private async createCamioes() {
+    const gltfLoader2 = new GLTFLoader();
+
+    gltfLoader2.load('../../assets/camiao/scene.gltf', (gltf) => {
+      let root = gltf.scene;
+      let newRoot = root.clone();
+      newRoot.castShadow = true;
+      newRoot.receiveShadow = true;
+      newRoot.scale.set(0.4, 0.4, 0.4);
+
+      newRoot.position.set(2, 2, 2);
+
+      this.scene.add(newRoot);
+    });
+  }
+
+  /**
+   * ANIMAÇAO CAMIAO
+   */
+  /** 
+  private manualMovement(){
+     
+    document.onkeydown = function (e) {
+      switch (e.key) {
+        case "a":
+          //rodar a camara para a esquerda
+          truck?.position.set(truck?.position.x- 0.1,truck?.position.y,truck?.position.z) ;
+          break;
+
+        case "d":
+          //rodar a camara para a direita
+          truck?.position.set(truck?.position.x+ 0.1,truck?.position.y,truck?.position.z) ;
+          break;
+
+        case "w":
+          //avançar - incrementar a posição da camara no eixo dos zz
+          truck?.position.set(truck?.position.x,truck?.position.y,truck?.position.z- 0.1) ;
+          break;
+
+        case "s":
+          //recuar - decrementar a posição da camara no eixo dos zz
+          truck?.position.set(truck?.position.x,truck?.position.y,truck?.position.z+ 0.1) ;
+          break;
+
+        default:break;
+      }
+
+      switch (e.keyCode){
+        case 39://right key
+          truck?.rotateY(5 * Math.PI / 180);
+          break;
+
+        case 37://lef key
+          truck?.rotateY(-5 * Math.PI / 180);
+          break;
+
+        case 38://up key
+          truck?.rotateX(-5 * Math.PI / 180);
+          break;
+
+        case 40://down key
+          truck?.rotateX(5 * Math.PI / 180);
+          break;
+
+        default:break;
+      }
+    }
+  }
+ */
+
   /**
    * ANIMAÇÕES
    */
