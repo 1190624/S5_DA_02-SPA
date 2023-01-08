@@ -238,7 +238,7 @@ export class RedeViariaComponent implements OnInit {
 
         });
       }
-      
+      /** 
             //Billboards por cima dos armazéns
             let sprite = new TextSprite({
               text: a.Designacao, alignment: 'left',
@@ -249,7 +249,7 @@ export class RedeViariaComponent implements OnInit {
             });
             sprite.position.set(coordenadas.x, coordenadas.y + 3, coordenadas.z - 5);
             this.scene.add(sprite)
-      
+      */
     });
   }
 
