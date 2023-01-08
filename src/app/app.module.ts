@@ -18,6 +18,8 @@ import { SharedModule } from './shared';
 import { CriarRotaComponent } from './criar-rota/criar-rota.component';
 import { RedeViariaComponent } from './rede-viaria/rede-viaria.component';
 import { ListarRotaComponent } from './listar-rota/listar-rota.component';
+import { LoginComponent } from './login/login.component';
+import { Ng2OrderModule } from 'ng2-order-pipe';
 //import { ExComponent } from './ex/ex.component';
 
 @NgModule({
@@ -33,7 +35,8 @@ import { ListarRotaComponent } from './listar-rota/listar-rota.component';
     ListarArmazemComponent,
     CriarRotaComponent,
     RedeViariaComponent,
-    ListarRotaComponent
+    ListarRotaComponent,
+    LoginComponent
     //ExComponent
   ],
   imports: [
@@ -42,7 +45,8 @@ import { ListarRotaComponent } from './listar-rota/listar-rota.component';
     FormsModule,
     HttpClientModule,
     SharedModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    Ng2OrderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
