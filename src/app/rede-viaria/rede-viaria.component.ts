@@ -7,7 +7,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import TextSprite from '@seregpie/three.text-sprite';
 import { RotasService } from '../services/rotas/rotas.service';
-import { Object3D } from 'three';
+import { Mesh, Object3D } from 'three';
 
 @Component({
   selector: 'app-rede-viaria',
@@ -60,11 +60,12 @@ export class RedeViariaComponent implements OnInit {
     const intensity = 1.3;
     const light = new THREE.SpotLight(color, intensity);
     light.castShadow = true;
-    light.position.set(100, 100, 100);
-    light.angle = THREE.MathUtils.degToRad(30);
+    light.position.set(30, 100, 30);
+    light.angle = THREE.MathUtils.degToRad(50);
     light.penumbra = 0.4;
     this.scene.add(light);
     this.scene.add(light.target);
+    
 
 
     const ambientlight = new THREE.AmbientLight(color, 0.3);
@@ -123,7 +124,7 @@ export class RedeViariaComponent implements OnInit {
   private createBase() {
     let geometry, material, mesh;
     geometry = new THREE.BoxGeometry(120, 1, 120);
-    material = new THREE.MeshBasicMaterial({ color: 0xe6e1e5 });
+    material = new THREE.MeshPhongMaterial({ color: 0x616161 });
     mesh = new THREE.Mesh(geometry, material);
     mesh.position.y = -1;
     mesh.castShadow = true;
@@ -149,16 +150,16 @@ export class RedeViariaComponent implements OnInit {
 
       let coordenadas = this.transformarCoordenadas(a);
 
-      let geometry, material, mesh;
+      let material, mesh;
       //geometry = new THREE.CylinderGeometry(raio, raio, 0.1, 32);
-      material = new THREE.MeshBasicMaterial({ color: 0x37373f });
+      material = new THREE.MeshPhongMaterial({ color: 0x37373f });
       mesh = new THREE.Mesh(this.rotunda, material);
       mesh.position.y = 0.1;
+      mesh.receiveShadow = true;
+      mesh.castShadow = true;
       object.add(mesh);
       object.name = a.Designacao;
       object.position.set(coordenadas.x, coordenadas.y, coordenadas.z);
-      object.castShadow = true;
-      object.receiveShadow = true;
       this.scene.add(object);
       const gltfLoader2 = new GLTFLoader();
 
@@ -205,14 +206,16 @@ export class RedeViariaComponent implements OnInit {
     this.listaArmazensDTO.forEach(a => {
       let coordenadas = this.transformarCoordenadas(a);
       gltfLoader.load('../../assets/armazem/scene.gltf', (gltf) => {
+        gltf.scene.traverse(function (node) {
+
+          if (node as Mesh) { node.castShadow = true; }
+
+        });
         let root = gltf.scene;
         let newRoot = root.clone();
         newRoot.castShadow = true;
         newRoot.receiveShadow = true;
         newRoot.scale.set(0.0005, 0.0005, 0.0005);
-
-        //posição diretamente em cima da rotunda
-        //newRoot.position.set(armazem.coordenadas.x - 1, armazem.coordenadas.y-0.2, armazem.coordenadas.z);
 
         //posição ao lado
         newRoot.position.set(coordenadas.x, coordenadas.y, coordenadas.z - 5);
@@ -220,6 +223,21 @@ export class RedeViariaComponent implements OnInit {
         this.scene.add(newRoot);
 
       });
+      if (a.Estado == false) {
+        gltfLoader.load('../../assets/exclamacao/scene.gltf', (gltf) => {
+          let root = gltf.scene;
+          let newRoot = root.clone();
+          newRoot.castShadow = true;
+          newRoot.receiveShadow = true;
+          newRoot.scale.set(1, 1, 1);
+
+          //posição ao lado
+          newRoot.position.set(coordenadas.x, coordenadas.y + 4, coordenadas.z - 5);
+
+          this.scene.add(newRoot);
+
+        });
+      }
       /** 
             //Billboards por cima dos armazéns
             let sprite = new TextSprite({
@@ -253,12 +271,12 @@ export class RedeViariaComponent implements OnInit {
     });
 
     let elemLigMaterial = [
-      new THREE.MeshBasicMaterial({ color: 0x37373f }), //right side
-      new THREE.MeshBasicMaterial({ color: 0x37373f }), //left side
-      new THREE.MeshBasicMaterial({ map: texturaElemLig }), //top side
-      new THREE.MeshBasicMaterial({ color: 0x37373f }), //bottom side
-      new THREE.MeshBasicMaterial({ color: 0x37373f }), //front side
-      new THREE.MeshBasicMaterial({ color: 0x37373f }), //back side
+      new THREE.MeshPhongMaterial({ color: 0x37373f }), //right side
+      new THREE.MeshPhongMaterial({ color: 0x37373f }), //left side
+      new THREE.MeshPhongMaterial({ map: texturaElemLig }), //top side
+      new THREE.MeshPhongMaterial({ color: 0x37373f }), //bottom side
+      new THREE.MeshPhongMaterial({ color: 0x37373f }), //front side
+      new THREE.MeshPhongMaterial({ color: 0x37373f }), //back side
     ];
 
     for (let i = 0; i < this.listaRotasDTO.length; i++) {
@@ -269,7 +287,7 @@ export class RedeViariaComponent implements OnInit {
         let teta1 = Math.atan2(-(armazem2.position.z - armazem1.position.z), armazem2.position.x - armazem1.position.x);
         let teta2 = Math.PI + teta1;
 
-        let elemLigGeometry = new THREE.BoxGeometry(1, 0.2, 2);
+        let elemLigGeometry = new THREE.BoxGeometry(1, 0.2, 3);
 
         let elemLig1Mesh = new THREE.Mesh(elemLigGeometry, elemLigMaterial);
         elemLig1Mesh.position.set(armazem1.position.x + this.rotunda.parameters.radiusTop * Math.cos(teta1), armazem1.position.y, armazem1.position.z - this.rotunda.parameters.radiusTop * Math.sin(teta1));
@@ -285,7 +303,7 @@ export class RedeViariaComponent implements OnInit {
         elemLig2Mesh.receiveShadow = true;
         this.scene.add(elemLig2Mesh)
 
-        let estradaGeometry = new THREE.BoxGeometry(2, 0.20, Math.sqrt(Math.pow(elemLig1Mesh.position.x - elemLig2Mesh.position.x, 2) + Math.pow(elemLig1Mesh.position.y - elemLig2Mesh.position.y, 2) + Math.pow(elemLig1Mesh.position.z - elemLig2Mesh.position.z, 2)));
+        let estradaGeometry = new THREE.BoxGeometry(3, 0.20, Math.sqrt(Math.pow(elemLig1Mesh.position.x - elemLig2Mesh.position.x, 2) + Math.pow(elemLig1Mesh.position.y - elemLig2Mesh.position.y, 2) + Math.pow(elemLig1Mesh.position.z - elemLig2Mesh.position.z, 2)));
         var texturaEstrada = loader.load('../../assets/estrada.jpg', function (texture) {
           texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
           texture.offset.set(0, 0);
@@ -294,12 +312,12 @@ export class RedeViariaComponent implements OnInit {
         });
 
         let estradaMaterial = [
-          new THREE.MeshBasicMaterial({ color: 0x37373f }), //right side
-          new THREE.MeshBasicMaterial({ color: 0x37373f }), //left side
-          new THREE.MeshBasicMaterial({ map: texturaEstrada }), //top side
-          new THREE.MeshBasicMaterial({ color: 0x37373f }), //bottom side
-          new THREE.MeshBasicMaterial({ color: 0x37373f }), //front side
-          new THREE.MeshBasicMaterial({ color: 0x37373f }), //back side
+          new THREE.MeshPhongMaterial({ color: 0x37373f }), //right side
+          new THREE.MeshPhongMaterial({ color: 0x37373f }), //left side
+          new THREE.MeshPhongMaterial({ map: texturaEstrada }), //top side
+          new THREE.MeshPhongMaterial({ color: 0x37373f }), //bottom side
+          new THREE.MeshPhongMaterial({ color: 0x37373f }), //front side
+          new THREE.MeshPhongMaterial({ color: 0x37373f }), //back side
         ];
         let estradaMesh = new THREE.Mesh(estradaGeometry, estradaMaterial);
 
