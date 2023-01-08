@@ -52,6 +52,6 @@ export class ListarArmazemComponent implements OnInit {
   }
 
   mudarEstado(id: string): void {
-    this.service.mudarEstado(id).subscribe(data => { alert("O estado do camião foi atualizado.") });
+    this.service.mudarEstado(id).subscribe(data => { alert("O estado do armazém foi atualizado!") });
   }
 }
