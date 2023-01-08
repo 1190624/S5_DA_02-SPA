@@ -3,7 +3,17 @@
 <body style="background-color:grey;text-align:center">
 
 
-  <h1><i class='bx bxs-navigation'></i> Lista de Rotas</h1>
+  <h1><i class='bx bxs-navigation'></i> Lista de Rotas   
+  <pagination-controls 
+      (pageChange)="numeroPagina = $event" 
+      previousLabel="Previous" 
+      nextLabel="Next" 
+      screenReaderPaginationLabel="Pagination" 
+      screenReaderPageLabel="page" 
+      screenReaderCurrentLabel="You're on page"
+      style="background-color: #927000;text-align: right; font-size: 13px;">
+    </pagination-controls>
+    <input styletype="number" [(ngModel)]="tamanhoLista" style="background-color: white;font-size: 13px;float: right;border: none;text-align: center;"></h1> 
   <table id="tbody">
     <tr>
       <th style="border-radius: 5px 0 0 0"><input type="text" class="header-filter" placeholder="ID" [(ngModel)]="pesquisaRotaId"></th>
@@ -23,15 +33,8 @@
       <td>{{r.gastoEnergetico}}</td>
       <td>{{r.tempoCargaExtra}}</td>
     </tr>
-    <input type="number" [(ngModel)]="tamanhoLista">
-    <pagination-controls 
-      (pageChange)="numeroPagina = $event" 
-      previousLabel="Previous" 
-      nextLabel="Next" 
-      screenReaderPaginationLabel="Pagination" 
-      screenReaderPageLabel="page" 
-      screenReaderCurrentLabel="You're on page">
-    </pagination-controls>
+    
+
   
   </table>
 </body>
