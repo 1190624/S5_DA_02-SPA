@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Armazem } from 'src/app/dto/armazem';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { urlGestaoArmazens } from 'src/app/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArmazemService {
 
-  public url = 'https://gestaoarmazem.herokuapp.com/api/armazem';
+  public url = urlGestaoArmazens + 'armazem';
   constructor(private httpClient: HttpClient) { }
 
 

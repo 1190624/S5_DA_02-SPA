@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { urlGestaoArmazens } from 'src/app/config';
 @Injectable({
   providedIn: 'root'
 })
 export class EntregaService {
-  public url = 'https://gestaoarmazem.herokuapp.com/api/Entrega';
+  public url = urlGestaoArmazens + 'Entrega';
   constructor(private httpClient: HttpClient) { }
 
   criarEntrega(identificador: string,

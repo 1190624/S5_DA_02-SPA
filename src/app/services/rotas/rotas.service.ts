@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { urlLogisitica } from 'src/app/config';
 import { IrotaDTO } from 'src/app/dto/IrotaDTO';
 
 
@@ -9,7 +10,7 @@ import { IrotaDTO } from 'src/app/dto/IrotaDTO';
 })
 export class RotasService {
 
-  public url = 'https://s5da02-logistica-production.up.railway.app/api/rota';
+  public url = urlLogisitica + 'rota';
   constructor(private httpClient: HttpClient) {
   }
 

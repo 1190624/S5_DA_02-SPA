@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Camiao } from '../../dto/camiao';
+import { urlLogisitica } from 'src/app/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CamiaoService {
-  public url = 'https://s5da02-logistica-production.up.railway.app/api/camiao';
+  public url = urlLogisitica + 'camiao';
   constructor(private httpClient: HttpClient) { }
 
 
