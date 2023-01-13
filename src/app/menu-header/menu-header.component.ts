@@ -12,4 +12,8 @@ export class MenuHeaderComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  getFirstName(): string {
+    return sessionStorage.getItem("FirstName") || "NULL";
+  }
 }

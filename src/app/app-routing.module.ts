@@ -17,7 +17,7 @@ import { ListarRotaComponent } from './listar-rota/listar-rota.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'appRoot', component: AppComponent},
   {path: 'adicionarCamiao', component: CriarCamiaoComponent},
   {path: 'adicionarArmazem', component: CriarArmazemComponent},

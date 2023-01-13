@@ -46,7 +46,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     HttpClientModule,
     SharedModule,
     NgxPaginationModule,
-    Ng2OrderModule
+    Ng2OrderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

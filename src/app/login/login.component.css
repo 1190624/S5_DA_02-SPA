@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    padding: 1rem;
+    background-color: #927000;
+    padding-bottom: 19.3%;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+h1 {
+    background-color: #927000;
+    padding: 20px;
+    width: 450px;
+    align-items: center;
+    font-size: calc(1.3rem + .6vw);
+    color: white;
+    margin: auto;
+    margin-top: 200px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    margin-left: 50px;
+}
+
+h5 {
+    margin-top: 2%;
+    color: white;
+}
+
+input, input:focus {
+    border: none;
+    margin-top: 15px;
+    border-radius: 3px;
+    width: 250px;
+    color: #927000;
+    outline: none;
+    box-shadow: 0 0 0px 1px grey;
+    transition: .1s;
+}
+
+.input-text:focus {
+    box-shadow: 0 0 0px 1.5px #927000;
+}
+
+.input-password {
+    margin-left: 18px;
+    width: 250px;
+}
+
+.login-container {
+    background-color: white;
+    width: 450px;
+    height: 215px;
+    border-radius: 0 0 20px 20px;
+    margin-left: 50px;
+    padding-top: 20px;
+    align-items: center;
+}
+
+.container-display {
+    display: inline-block;
+}
+
+button {
+    margin-left: 18px;
+    border-radius: 5px;
+    outline: none;
+    width: 250px;
+    border: none;
+    color: white;
+    transition: .1s;
+}
+
+.button-login {
+    margin-top: 25px;
+    background-color: #927000;
+}
+
+.button-login:hover {
+    background-color: #CD9E00;
+}
+
+.button-register {
+    margin-top: 10px;
+    background-color: #808080;
+}
+
+.button-register:hover {
+    background-color: #ACACAC;
+}
+
+
+.header-filter {
+    border: none;
+    max-width: auto;
+    padding: 10px 9px;
+    text-align: center;
+}
+
+.fa-eye {
+    position: relative;
+    right: 5%;
+    cursor: pointer;
+    color: gray;
+}
+
+.logo-display {
+    margin-right: 62px;
+}

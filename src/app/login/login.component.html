@@ -1,3 +1,25 @@
-<app-menu-header></app-menu-header>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
-<button type="button" (click)="LogUser()">Click me!</button>
+<body style="background-color:grey;text-align:center">
+    <div class="container-display">
+        <img src="../../assets/Logo.png" class="logo-display">
+        <h5>A transportar sustentabilidade a Portugal.</h5>
+    </div>
+    <div class="container-display">
+        <h1><i class='bx bx-user'></i>&nbsp;Log In</h1>
+        <form class="login-container">
+            <div>
+                <i class="header-filter"></i>
+                <input type="text" class="input-text" name="Email" placeholder="Email" [(ngModel)]="email">
+            </div>
+            <div>
+                <i class="header-filter"></i>
+                <input [type]="hide ? 'password' : 'text'" class="input-password" name="Password" placeholder="Password" [(ngModel)]="password">
+                <i class="" (click)="showHidePassword()" [ngClass]="hide ? 'fa-solid fa-eye': 'fa-regular fa-eye'"></i>
+            </div>
+            <button type="button" class="button-login" (click)="loginUser()">Log In</button>
+            <button type="button" class="button-register" (click)="loginUser()">Register</button>
+        </form>
+    </div>
+</body>
+
