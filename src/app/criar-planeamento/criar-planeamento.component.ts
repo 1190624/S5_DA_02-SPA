@@ -24,14 +24,14 @@ export class CriarPlaneamentoComponent implements OnInit {
 
     //const MATRICULA_REGEX = new RegExp(/^[A-Z]{2}-[0-9]{2}-[A-Z]{2}$/);
     
-    if (!this.matricula == null) {
-      alert("Matrícula não é válida!");    
+    if (this.heuristica == null) {
+      alert("A heurística não é válida!");    
     }
-    else if(!this.data == null){
-      alert("A data é inválida!");
+    else if(this.matricula == null){
+      alert("A matrícula é inválida!");
     }
-    else if(!this.heuristica == null){
-      alert("O Heurística é inválida!");
+    else if(this.data == null){
+      alert("O data é inválida!");
     }
     else{
       this.service.criarPlaneamento(this.heuristica, this.matricula, this.data)

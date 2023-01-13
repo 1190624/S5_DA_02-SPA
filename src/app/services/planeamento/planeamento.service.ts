@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { urlLogisitica } from 'src/app/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaneamentoService {
 
-  public url = "http://localhost:2311/api/planeamento";
+  public url = urlLogisitica + 'planeamento';
 
   constructor(private httpClient: HttpClient) { }
 

@@ -6,8 +6,8 @@ import { Observable, catchError } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  //private url = "https://gestaoutilizadores.herokuapp.com/api/auth/login";
-  private url = "http://localhost:8080/api/auth/login";
+  private url = "https://gestaoutilizadores.herokuapp.com/api/auth/login";
+  //private url = "http://localhost:8080/api/auth/login";
 
   constructor(private httpClient: HttpClient) {}
 
