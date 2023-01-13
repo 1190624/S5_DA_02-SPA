@@ -15,6 +15,8 @@ import { CriarRotaComponent } from './criar-rota/criar-rota.component';
 import { RedeViariaComponent } from './rede-viaria/rede-viaria.component';
 import { ListarRotaComponent } from './listar-rota/listar-rota.component';
 import { LoginComponent } from './login/login.component';
+import { CriarPlaneamentoComponent } from './criar-planeamento/criar-planeamento.component';
+import { ListarPlaneamentoComponent } from './listar-planeamento/listar-planeamento.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -29,7 +31,10 @@ const routes: Routes = [
   {path: 'listarRota', component: ListarRotaComponent},
   {path: 'criarRota', component: CriarRotaComponent},
   {path: 'redeViaria', component: RedeViariaComponent},
-  {path: 'login', component: LoginComponent }
+  {path: 'login', component: LoginComponent },
+  {path: 'criarPlaneamento', component: CriarPlaneamentoComponent},
+  {path: 'listarPlaneamento', component: ListarPlaneamentoComponent}
+
 ];
 
 @NgModule({

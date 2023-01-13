@@ -249,6 +249,29 @@ export class FilterPipe implements PipeTransform {
           singleItem['Estado'].toString().includes(params.Estado.toLowerCase())
         );
       }
+    } else if (domainType === "planeamento") {
+
+      if (!params.matricula && !params.data && !params.armazens) {
+        return items
+      }
+
+      if (params.matricula) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['matricula'].toLowerCase().includes(params.matricula.toLowerCase())
+        );
+      }
+
+      if (params.data) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['data'].toLowerCase().includes(params.data.toLowerCase())
+        );
+      }
+
+      if (params.armazens) {
+        finalList = finalList.filter((singleItem) =>
+          singleItem['armazens'].toLowerCase().includes(params.armazens.toLowerCase())
+        );
+      }
     }
 
     return finalList;

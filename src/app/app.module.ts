@@ -20,6 +20,8 @@ import { RedeViariaComponent } from './rede-viaria/rede-viaria.component';
 import { ListarRotaComponent } from './listar-rota/listar-rota.component';
 import { LoginComponent } from './login/login.component';
 import { Ng2OrderModule } from 'ng2-order-pipe';
+import { CriarPlaneamentoComponent } from './criar-planeamento/criar-planeamento.component';
+import { ListarPlaneamentoComponent } from './listar-planeamento/listar-planeamento.component';
 //import { ExComponent } from './ex/ex.component';
 
 @NgModule({
@@ -36,7 +38,9 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     CriarRotaComponent,
     RedeViariaComponent,
     ListarRotaComponent,
-    LoginComponent
+    LoginComponent,
+    CriarPlaneamentoComponent,
+    ListarPlaneamentoComponent
     //ExComponent
   ],
   imports: [

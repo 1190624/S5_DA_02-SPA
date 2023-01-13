@@ -39,6 +39,8 @@ export class RedeViariaComponent implements OnInit {
   private camiaoListener = new THREE.AudioListener();
   private camiaoAudio = new THREE.Audio(this.camiaoListener);
 
+  private camiao = new Object;
+
   constructor(private armazemService: ArmazemService, private rotasService: RotasService) {
 
   }
@@ -71,7 +73,7 @@ export class RedeViariaComponent implements OnInit {
     light.castShadow = true;
     light.position.set(30, 100, 30);
     light.angle = THREE.MathUtils.degToRad(50);
-    light.penumbra = 0.4;
+    light.penumbra = 0.3;
     this.scene.add(light);
     this.scene.add(light.target);
 
@@ -81,7 +83,7 @@ export class RedeViariaComponent implements OnInit {
     this.scene.add(ambientlight);
 
     //ajuda para saber a origem da luz qual é o comprimento que é projetada
-    //const helper = new THREE.SpotLightHelper(light);
+  //const helper = new THREE.SpotLightHelper(light);
     //this.scene.add(helper);
 
     //this.renderer.shadowMap.enable = true;
@@ -248,7 +250,7 @@ export class RedeViariaComponent implements OnInit {
 
         });
       }
-      /** 
+
             //Billboards por cima dos armazéns
             let sprite = new TextSprite({
               text: a.Designacao, alignment: 'left',
@@ -259,7 +261,7 @@ export class RedeViariaComponent implements OnInit {
             });
             sprite.position.set(coordenadas.x, coordenadas.y + 3, coordenadas.z - 5);
             this.scene.add(sprite)
-      */
+      
     });
   }
 
@@ -361,9 +363,10 @@ export class RedeViariaComponent implements OnInit {
       newRoot.scale.set(0.4, 0.4, 0.4);
 
       newRoot.position.set(0, 2.9, 2.5);
-      newRoot.rotateY(Math.PI/4);
+      newRoot.rotateY(Math.PI / 4);
 
-      this.scene.add(newRoot)
+      this.scene.add(newRoot);
+      this.camiao = newRoot;
     });
 
     this.somCamiaoLoader.load('../../assets/camiao.mp3', (buffer) => {
@@ -377,14 +380,14 @@ export class RedeViariaComponent implements OnInit {
   /**
    * ANIMAÇAO CAMIAO
    */
-  /** 
+  /**
   private manualMovement(){
      
     document.onkeydown = function (e) {
       switch (e.key) {
         case "a":
           //rodar a camara para a esquerda
-          truck?.position.set(truck?.position.x- 0.1,truck?.position.y,truck?.position.z) ;
+          this.camiao.position.set(truck?.position.x- 0.1,truck?.position.y,truck?.position.z) ;
           break;
 
         case "d":
@@ -464,4 +467,6 @@ export class RedeViariaComponent implements OnInit {
       this.ambienteAudio.play();
     });
   }
+
+
 }

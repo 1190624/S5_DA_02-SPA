@@ -1,0 +1,35 @@
+<app-menu-header></app-menu-header>
+
+<body style="background-color:grey;text-align:center;padding-bottom: 300px;">
+
+  <div class="contain">
+
+    <div class="wrapper">
+      <div class="contacts" style="background-image: url('../../assets/planeamento.jpg'); background-repeat: no-repeat; background-size: cover;">
+        <h3><i class='bx bxs-directions'></i> Novo Planneamento</h3>
+
+      </div>
+
+      <div class="form">
+        <h3>Preencha os seguintes campos:</h3>
+        <form action="">
+          <p>
+            <label for="">Heurística</label>
+            <input type="text" id="heuristica" name="heuristica" required [(ngModel)]="heuristica">
+          </p>
+          <p>
+            <label for="">Matrícula</label>
+            <input type="text" id="matricula" name="matricula" required [(ngModel)]="matricula">
+          </p>
+          <p>
+            <label for="">Data</label>
+            <input type="text" id="data" name="data" required [(ngModel)]="data">
+          </p>
+          <p class="full-width">
+            <button (click)="Submit()">Submeter</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>

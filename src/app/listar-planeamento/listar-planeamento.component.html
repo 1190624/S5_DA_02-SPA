@@ -1,0 +1,21 @@
+<app-menu-header></app-menu-header>
+
+<body style="background-color:grey;text-align:center">
+
+
+  <h1><i class='bx bxs-directions'></i> Lista de Planeamentos</h1>
+  <table id="tbody">
+    <tr>
+      <th style="border-radius: 1px 0 0 0"><input type="text" class="header-filter" placeholder="Matrícula" [(ngModel)]="pesquisaMatricula"></th>
+      <th><input type="text" class="header-filter" placeholder="Data" [(ngModel)]="pesquisaData"></th>
+      <th style="border-radius: 0 1px 0 0"><input type="text" class="header-filter" placeholder="Armazéns" [(ngModel)]="pesquisaArmazens"></th>
+
+    </tr>
+    <tr *ngFor="let p of planeamentos | filter:'planeamento':{matricula: pesquisaMatricula, data: pesquisaData, armazens: pesquisaArmazens}">
+      <td>{{p.matricula}}</td>
+      <td>{{p.data}}</td>
+      <td>{{p.armazens}}</td>
+    </tr>
+  </table>
+</body>
+
